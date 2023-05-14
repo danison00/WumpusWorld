@@ -3,23 +3,30 @@ package interfaceJogo;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 public class Cacador {
 
-	private int x, y, dx, dy;
+	private int x, y, dx, dy, cont = 0;
 	private Image cacador;
-
+	private ArrayList<Integer> passosLin;
+	private ArrayList<Integer> passosCol;
 	private int altura, largura;
+	private ArrayList<Integer> posicaoCacador;
 
-	public Cacador() {
+	public Cacador(ArrayList<Integer> passosLin, ArrayList<Integer> passosCol){
 
 		this.x = 30;
 		this.y = 25;
+		
+		this.passosCol = passosCol;
+		this.passosLin = passosLin;
+		
 	}
 
-	public void load() {
+	public void load(){
 
 		ImageIcon caminho_cacador = new ImageIcon("src/interfaceJogo/resource/cacador.png");
 		cacador = caminho_cacador.getImage();
@@ -29,55 +36,38 @@ public class Cacador {
 		
 	}
 
-	public void update() {
+	public void update(){
 
-		x += dx;
-		y += dy;
-
-
+		this.x = dx;
+		this.y = dy;
 	}
 
-	public void keyPressed(KeyEvent tecla) {
-
+	public ArrayList<Integer> keyPressed(KeyEvent tecla) {
+		
+		posicaoCacador = new ArrayList<>();
+		
 		int codigo = tecla.getKeyCode();
-		if (codigo == KeyEvent.VK_UP) {
+		if (codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN ||
+			codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT){
 			
-			dy = -161;
+			this.dy = 25+(161*passosLin.get(cont));
+			this.dx = 50+(172*passosCol.get(cont));
+			
+			this.posicaoCacador.add(dy);
+			this.posicaoCacador.add(dx);
 		}
-		if (codigo == KeyEvent.VK_DOWN) {
-
-			dy = 161;
+	
+		System.out.println(cont+": "+passosLin.get(cont)+","+passosCol.get(cont));
+		if(cont<passosCol.size()-1){
+			
+			cont++;
 		}
-		if (codigo == KeyEvent.VK_LEFT) {
-
-			dx = -172;
-		}
-		if (codigo == KeyEvent.VK_RIGHT) {
-
-			dx = 172;
-		}
-
+		return this.posicaoCacador;
 	}
 
-	public void keyRelease(KeyEvent tecla) {
-
-		int codigo = tecla.getKeyCode();
-		if (codigo == KeyEvent.VK_UP) {
-
-			dy = 0;
-		}
-		if (codigo == KeyEvent.VK_DOWN) {
-
-			dy = 0;
-		}
-		if (codigo == KeyEvent.VK_LEFT) {
-
-			dx = 0;
-		}
-		if (codigo == KeyEvent.VK_RIGHT) {
-
-			dx = 0;
-		}
+	public void keyRelease(KeyEvent tecla){
+		
+		
 
 	}
 

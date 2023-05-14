@@ -27,15 +27,32 @@ public class WumpussWorld {
 	final static int LESTE = 3;
 	final static int OESTE = 4;
 
-	final static int[][] cie = { { 3 }, { 0 } };
-	final static int[][] cid = { { 3 }, { 3 } };
-	final static int[][] cse = { { 0 }, { 0 } };
-	final static int[][] csd = { { 0 }, { 3 } };
-	final static int[][] pe = { { 1, 2 }, { 0, 0 } };
-	final static int[][] pd = { { 1, 2 }, { 3, 3 } };
-	final static int[][] ps = { { 0, 0 }, { 1, 2 } };
-	final static int[][] pi = { { 3, 3 }, { 1, 2 } };
-	final static int[][] c = { { 1, 1, 2, 2 }, { 1, 2, 1, 2 } };
+	final static int[][] cie = { { 3 },
+								 { 0 } };
+	
+	final static int[][] cid = { { 3 }, 
+								 { 3 } };
+	
+	final static int[][] cse = { { 0 },
+								 { 0 } };
+	
+	final static int[][] csd = { { 0 },
+								 { 3 } };
+	
+	final static int[][] pe = { { 1, 2 },
+			    				{ 0, 0 } };
+	
+	final static int[][] pd = { { 1, 2 }, 
+								{ 3, 3 } };
+	
+	final static int[][] ps = { { 0, 0 }, 
+			  				    { 1, 2 } };
+	
+	final static int[][] pi = { { 3, 3 }, 
+							 	{ 1, 2 } };
+	
+	final static int[][] c = { { 1, 1, 2, 2 },
+							   { 1, 2, 1, 2 } };
 
 	// cria as variaveis do ambiente
 	int[][] world = new int[4][4];
@@ -53,8 +70,9 @@ public class WumpussWorld {
 	boolean perdeu;
 	int mover;
 	
-	ArrayList<Integer> passosCol;
-	ArrayList<Integer> passosLin;
+	ArrayList<Integer> passosCol = new ArrayList<>();
+	
+	ArrayList<Integer> passosLin = new ArrayList<>();
 
 
 	Random random = new Random();
@@ -214,19 +232,22 @@ public class WumpussWorld {
 	}
 
 	public void run() {
-		
+	
 		do {
+			
 			passosLin = new ArrayList<>();
 			passosCol = new ArrayList<>();
-
+			
+			
+			
+			passosLin.add(0);
+			passosCol.add(0);
+			
 			iniciaPartida();
 			
 
 			while (!venceu && !perdeu) {
 				
-		
-				passosLin.add(locLin);
-				passosCol.add(locCol);
 
 				regiao = localizaRegiao(locLin, locCol);
 
@@ -251,7 +272,11 @@ public class WumpussWorld {
 				}
 				if (caiuPoco || devorado) {
 					perdeu = true;
+				
 				}
+				
+				passosLin.add(locLin);
+				passosCol.add(locCol);
 
 			}
 
@@ -262,13 +287,15 @@ public class WumpussWorld {
 		imprimeMatriz();
 		System.out.println("Venceu: " + contVenceu);
 		System.out.println("Caiu no poco: " + contCaiuPoco);
-		System.out.println("Pegou o ouro: " + contPegouOuro);
 		System.out.println("Foi devorado: " + contDevorado);
+		System.out.println("Pegou o ouro: " + contPegouOuro);
+		System.out.println("Total de passos: " + passosLin.size());
+
 		
-		for(int i=0; i<passosLin.size(); i++) {
+		for(int i=0; i<passosLin.size(); i++)
 			System.out.println(passosLin.get(i)+","+passosCol.get(i));
 			
-		}
+		
 
 	}
 

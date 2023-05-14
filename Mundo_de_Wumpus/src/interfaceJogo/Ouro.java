@@ -1,20 +1,21 @@
 package interfaceJogo;
 
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 
 
 public class Ouro {
-	private int x, y;
+	private int xx, yy, dx, dy;
 	private Image ouro;
 
 	private int altura, largura;
 
 	public Ouro(int x, int y) {
 
-		this.x = 30+(x*172);
-		this.y = 30+(y*161);
+		this.xx = 30+(x*172);
+		this.yy = 30+(y*161);
 	}
 
 	public void load() {
@@ -24,23 +25,49 @@ public class Ouro {
 
 		largura = ouro.getWidth(null);
 		altura = ouro.getHeight(null);
+	}
+	
+	public void update() {
+
+		this.xx = dx;
+		this.yy = dy;
 
 	}
 
+	public void keyPressed(int y, int x) {
+		
+		this.dy = y;
+		this.dx = x;
+	
+	
+	}
+	
+	public void keyRelease(KeyEvent tecla) {
+
+		
+
+	}
+	public void redimensionaOuro() {
+		
+		ouro = ouro.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+
+	}
+
+
 	public int getX() {
-		return x;
+		return xx;
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.xx = x;
 	}
 
 	public int getY() {
-		return y;
+		return yy;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.yy = y;
 	}
 
 	public Image getWumpus() {

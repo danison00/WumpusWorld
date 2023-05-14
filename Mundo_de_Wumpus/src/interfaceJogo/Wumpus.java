@@ -13,17 +13,22 @@ public class Wumpus {
 
 	public Wumpus() {
 
-		this.x = 50;
-		this.y = 50+(161*2);
+		this.x = 30;
+		this.y = 30+(161*2);
+
 	}
 
 	public void load() {
 
 		ImageIcon caminho_wumpus = new ImageIcon("src/interfaceJogo/resource/wumpus.png");
 		wumpus = caminho_wumpus.getImage();
+		wumpus = wumpus.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 
 		largura = wumpus.getWidth(null);
 		altura = wumpus.getHeight(null);
+		
+
+		
 
 	}
 
