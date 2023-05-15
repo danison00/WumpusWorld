@@ -1,45 +1,31 @@
 package wumpus;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class teste {
-	
 
-		private int locLin;
-		int locCol;
-		int regiao = 0;
-		int contVenceu = 0;
-		int contDevorado = 0;
-		int contCaiuPoco = 0;
-		int contPegouOuro = 0;
-		boolean venceu = false;
-		boolean pegouOuro = false;
-		boolean caiuPoco = false;
-		boolean devorado = false;
-		boolean perdeu = false;
-		int mover;
-		
-		
+public static void main(String[] args) {
 	
-
-	public static void main(String[] args) {
-
-		int[][] world = new int[4][4];
-
+	Matriz mat = new Matriz(5);
 	
+	mat.imprimeMatriz();
 	
+	int cont=0;
+	for(int i =0; i<5;i++) {
+		for(int j =0; j<5;j++) {
+			
+			System.out.print(mat.matrizSensacoes.get(i).get(j)+"\t");
+			
+			cont++;
+			
+		}
+		System.out.println();
 	}
-
-
-
-
-	public int getLocLin() {
-		return locLin;
-	}
-
-
-
-
-	public void setLocLin(int locLin) {
-		this.locLin = locLin;
-	}
+	
+	List<List<List<String>>> a = new ArrayList<>();
+	
+}
 
 }

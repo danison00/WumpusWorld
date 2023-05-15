@@ -27,56 +27,46 @@ public class WumpussWorld {
 	final static int LESTE = 3;
 	final static int OESTE = 4;
 
-	final static int[][] cie = { { 3 },
-								 { 0 } };
+	final static int[][] cie = { { 3 },{ 0 } };
 	
-	final static int[][] cid = { { 3 }, 
-								 { 3 } };
+	final static int[][] cid = { { 3 }, { 3 } };
 	
-	final static int[][] cse = { { 0 },
-								 { 0 } };
+	final static int[][] cse = { { 0 },{ 0 } };
 	
-	final static int[][] csd = { { 0 },
-								 { 3 } };
+	final static int[][] csd = { { 0 },{ 3 } };
 	
-	final static int[][] pe = { { 1, 2 },
-			    				{ 0, 0 } };
+	final static int[][] pe = { { 1, 2 },{ 0, 0 } };
 	
-	final static int[][] pd = { { 1, 2 }, 
-								{ 3, 3 } };
+	final static int[][] pd = { { 1, 2 },{ 3, 3 } };
 	
-	final static int[][] ps = { { 0, 0 }, 
-			  				    { 1, 2 } };
+	final static int[][] ps = { { 0, 0 },{ 1, 2 } };
 	
-	final static int[][] pi = { { 3, 3 }, 
-							 	{ 1, 2 } };
+	final static int[][] pi = { { 3, 3 }, { 1, 2 } };
 	
-	final static int[][] c = { { 1, 1, 2, 2 },
-							   { 1, 2, 1, 2 } };
+	final static int[][] c = { { 1, 1, 2, 2 },{ 1, 2, 1, 2 } };
 
 	// cria as variaveis do ambiente
-	int[][] world = new int[4][4];
-	int locLin;
-	int locCol;
 	int regiao;
 	int contVenceu;
 	int contDevorado;
 	int contCaiuPoco;
 	int contPegouOuro;
-	boolean venceu;
-	boolean pegouOuro;
-	boolean caiuPoco;
-	boolean devorado;
-	boolean perdeu;
-	int mover;
-	
-	ArrayList<Integer> passosCol = new ArrayList<>();
-	
-	ArrayList<Integer> passosLin = new ArrayList<>();
-
-
+	int sentido_mover;
 	Random random = new Random();
+	Agente agente;
+	Matriz matriz = new Matriz(random.nextInt(100));
+	ArrayList<Integer> passosCol = new ArrayList<>();
+	ArrayList<Integer> passosLin = new ArrayList<>();
+	
+	int[][] world = new int[4][4];
 
+	
+
+	public void mapeiaMatriz() {
+		
+		
+		
+	}
 	public void imprimeMatriz() {
 
 		for (int i = 0; i < world[0].length; i++) {
@@ -122,14 +112,9 @@ public class WumpussWorld {
 	}
 
 	public void iniciaPartida() {
-
-		locLin = 0;
-		locCol = 0;
-		devorado = false;
-		caiuPoco = false;
-		pegouOuro = false;
-		venceu = false;
-		perdeu = false;
+		
+		agente = new Agente();
+		
 
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
@@ -147,84 +132,89 @@ public class WumpussWorld {
 		switch (regiao) {
 
 		case CSE:
-			mover = random.nextInt(2);
-			if (mover == 0)
-				locLin++; // MOVER SUL
-			if (mover == 1)
-				locCol++; // MOVER LESTE
+			sentido_mover = random.nextInt(2);
+			
+			
+			if (sentido_mover == 0)
+				agente.setLocLin(agente.getLocLin()+1); // MOVER SUL
+			if (sentido_mover == 1)
+				agente.setLocCol(agente.getLocCol()+1); // MOVER LESTE
 			break;
 
 		case CSD:
-			mover = random.nextInt(2);
-			if (mover == 0)
-				locLin++; // MOVER SUL
-			if (mover == 1)
-				locCol--; // MOVER OESTE
+			sentido_mover = random.nextInt(2);
+			if (sentido_mover == 0)
+				agente.setLocLin(agente.getLocLin()+1); // MOVER SUL
+			if (sentido_mover == 1)
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
 			break;
 
 		case CIE:
-			mover = random.nextInt(2);
-			if (mover == 0)
-				locLin--; // MOVER NORTE
-			if (mover == 1)
-				locCol++; // MOVER LESTE
+			sentido_mover = random.nextInt(2);
+			if (sentido_mover == 0)
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 1)
+				agente.setLocCol(agente.getLocCol()+1);  // MOVER LESTE
 			break;
 
 		case CID:
-			mover = random.nextInt(2);
-			if (mover == 0)
-				locLin--; // MOVER NORTE
-			if (mover == 1)
-				locCol--; // MOVER OESTE
+			sentido_mover = random.nextInt(2);
+			if (sentido_mover == 0)
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 1)
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
 			break;
 
 		case PE:
-			mover = random.nextInt(3);
-			if (mover == 0)
-				locCol++; // MOVER LESTE
-			if (mover == 1)
-				locLin--; // MOVER NORTE
-			if (mover == 2)
-				locLin++; // MOVER SUL
+			sentido_mover = random.nextInt(3);
+			if (sentido_mover == 0)
+				agente.setLocCol(agente.getLocCol()+1);  // MOVER LESTE
+			if (sentido_mover == 1)
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 2)
+				agente.setLocLin(agente.getLocLin()+1); // MOVER SUL
 			break;
 
 		case PD:
-			mover = random.nextInt(3);
-			if (mover == 0) locCol--; // MOVER OESTE
-			if (mover == 1) locLin--; // MOVER NORTE
-			if (mover == 2) locLin++; // MOVER SUL
+			sentido_mover = random.nextInt(3);
+			if (sentido_mover == 0) 
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
+			if (sentido_mover == 1) 
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 2) 
+				agente.setLocLin(agente.getLocLin()+1);  // MOVER SUL
 			break;
 
 		case PS:
-			mover = random.nextInt(3);
-			if (mover == 0)
-				locCol++; // MOVER LESTE
-			if (mover == 1)
-				locLin++; // MOVER SUL
-			if (mover == 2)
-				locCol--; // MOVER OESTE
+			sentido_mover = random.nextInt(3);
+			if (sentido_mover == 0)
+				agente.setLocCol(agente.getLocCol()+1);  // MOVER LESTE
+			if (sentido_mover == 1)
+				agente.setLocLin(agente.getLocLin()+1);  // MOVER SUL
+			if (sentido_mover == 2)
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
 			break;
 
 		case PI:
-			mover = random.nextInt(3);
-			if (mover == 0)
-				locCol--; // MOVER OESTE
-			if (mover == 1)
-				locLin--; // MOVER NORTE
-			if (mover == 2)
-				locCol++; // MOVER LESTE
+			sentido_mover = random.nextInt(3);
+			if (sentido_mover == 0)
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
+			if (sentido_mover == 1)
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 2)
+				agente.setLocCol(agente.getLocCol()+1);  // MOVER LESTE
 			break;
 
 		case C:
-			mover = random.nextInt(4);
-			if (mover == 0)
-				locLin--; // MOVER NORTE
-			if (mover == 1)
-				locLin++; // MOVER SUL
-			if (mover == 2)
-				locCol++; // MOVER LESTE
-			if (mover == 3)
-				locCol--; // MOVER OESTE
+			sentido_mover = random.nextInt(4);
+			if (sentido_mover == 0)
+				agente.setLocLin(agente.getLocLin()-1); // MOVER NORTE
+			if (sentido_mover == 1)
+				agente.setLocLin(agente.getLocLin()+1);  // MOVER SUL
+			if (sentido_mover == 2)
+				agente.setLocCol(agente.getLocCol()+1);  // MOVER LESTE
+			if (sentido_mover == 3)
+				agente.setLocCol(agente.getLocCol()-1); // MOVER OESTE
 
 			break;
 		}
@@ -246,37 +236,37 @@ public class WumpussWorld {
 			iniciaPartida();
 			
 
-			while (!venceu && !perdeu) {
+			while (!agente.isVenceu() && !agente.isPerdeu()) {
 				
 
-				regiao = localizaRegiao(locLin, locCol);
+				regiao = localizaRegiao(agente.getLocLin(), agente.getLocCol());
 
 				movimenta(regiao);
 
-				if (world[locLin][locCol] == WUMPUS) {
-					devorado = true;
+				if (world[agente.getLocLin()][agente.getLocCol()] == WUMPUS) {
+					agente.setDevorado(true);
 					contDevorado++;
 				}
-				if (world[locLin][locCol] == POCO) {
-					caiuPoco = true;
+				if (world[agente.getLocLin()][agente.getLocCol()] == POCO) {
+					agente.setCaiuPoco(true);
 					contCaiuPoco++;
 				}
-				if (world[locLin][locCol] == OURO) {
-					pegouOuro = true;
+				if (world[agente.getLocLin()][agente.getLocCol()] == OURO) {
+					agente.setPegouOuro(true);
 					contPegouOuro++;
 				}
 
-				if (pegouOuro && locLin == 0 && locCol == 0) {
-					venceu = true;
+				if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0) {
+					agente.setVenceu(true);
 					contVenceu++;
 				}
-				if (caiuPoco || devorado) {
-					perdeu = true;
+				if (agente.isCaiuPoco() || agente.isDevorado()) {
+					agente.setPerdeu(true);
 				
 				}
 				
-				passosLin.add(locLin);
-				passosCol.add(locCol);
+				passosLin.add(agente.getLocLin());
+				passosCol.add(agente.getLocCol());
 
 			}
 
@@ -299,12 +289,6 @@ public class WumpussWorld {
 
 	}
 
-	public static void main(String[] args) {
-
-		WumpussWorld wumpussWorld = new WumpussWorld();
-
-		wumpussWorld.run();
-
-	}
+	
 
 }
