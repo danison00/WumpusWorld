@@ -142,26 +142,31 @@ public class Matriz {
 
 					if (col > 0) {
 						if (matriz[lin][col - 1] != 1 && matriz[lin][col - 1] != 2 && matriz[lin][col - 1] != 2
-								&& !matrizSensacoes.get(lin).get(col - 1).contains(poco.getSensacao()))
+								&& !matrizSensacoes.get(lin).get(col - 1).contains(poco.getSensacao())) {
 							matrizSensacoes.get(lin).get(col - 1).add(poco.getSensacao());
+						}
 					}
 
-					if (col + 1 < 5) {
+					if (col + 1 < tamanho) {
 						if (matriz[lin][col + 1] != 1 && matriz[lin][col + 1] != 2 && matriz[lin][col + 1] != 2
-								&& !matrizSensacoes.get(lin).get(col + 1).contains(poco.getSensacao()))
+								&& !matrizSensacoes.get(lin).get(col + 1).contains(poco.getSensacao())) {
 							matrizSensacoes.get(lin).get(col + 1).add(poco.getSensacao());
+						}
 					}
 
-					if (lin + 1 < 5) {
+					if (lin + 1 < tamanho) {
 						if (matriz[lin + 1][col] != 1 && matriz[lin + 1][col] != 2 && matriz[lin + 1][col] != 2
-								&& !matrizSensacoes.get(lin + 1).get(col).contains(poco.getSensacao()))
+								&& !matrizSensacoes.get(lin + 1).get(col).contains(poco.getSensacao())) 
+						{
 							matrizSensacoes.get(lin + 1).get(col).add(poco.getSensacao());
+						}
 					}
 
 					if (lin > 0) {
 						if (matriz[lin - 1][col] != 1 && matriz[lin - 1][col] != 2 && matriz[lin - 1][col] != 2
-								&& !matrizSensacoes.get(lin - 1).get(col).contains(poco.getSensacao()))
+								&& !matrizSensacoes.get(lin - 1).get(col).contains(poco.getSensacao())) {
 							matrizSensacoes.get(lin - 1).get(col).add(poco.getSensacao());
+						}
 					}
 
 					break;
@@ -197,26 +202,31 @@ public class Matriz {
 					}
 					if (col > 0) {
 						if (matriz[lin][col - 1] != 1 && matriz[lin][col - 1] != 2
-								&& !matrizSensacoes.get(lin).get(col - 1).contains(wumpus.getSensacao()))
+								&& !matrizSensacoes.get(lin).get(col - 1).contains(wumpus.getSensacao())) {
 							matrizSensacoes.get(lin).get(col - 1).add(wumpus.getSensacao());
+						}
 					}
 
-					if (col + 1 < 5) {
+					if (col + 1 < tamanho) {
 						if (matriz[lin][col + 1] != 1 && matriz[lin][col + 1] != 2
-								&& !matrizSensacoes.get(lin).get(col + 1).contains(wumpus.getSensacao()))
+								&& !matrizSensacoes.get(lin).get(col + 1).contains(wumpus.getSensacao())) {
 							matrizSensacoes.get(lin).get(col + 1).add(wumpus.getSensacao());
+						}
 					}
 
-					if (lin + 1 < 5) {
+					if (lin + 1 < tamanho) {
 						if (matriz[lin + 1][col] != 1 && matriz[lin + 1][col] != 2
-								&& !matrizSensacoes.get(lin + 1).get(col).contains(wumpus.getSensacao()))
+								&& !matrizSensacoes.get(lin + 1).get(col).contains(wumpus.getSensacao())) {
 							matrizSensacoes.get(lin + 1).get(col).add(wumpus.getSensacao());
+						}
 					}
 
 					if (lin > 0) {
 						if (matriz[lin - 1][col] != 1 && matriz[lin - 1][col] != 2
-								&& !matrizSensacoes.get(lin - 1).get(col).contains(wumpus.getSensacao()))
+								&& !matrizSensacoes.get(lin - 1).get(col).contains(wumpus.getSensacao())) {
 							matrizSensacoes.get(lin - 1).get(col).add(wumpus.getSensacao());
+						}
+
 					}
 					break;
 				}

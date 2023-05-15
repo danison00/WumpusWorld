@@ -114,6 +114,7 @@ public class WumpussWorld {
 	public void iniciaPartida() {
 		
 		agente = new Agente();
+		matriz = new Matriz(4);
 		
 
 		for (int i = 0; i < 4; i++)
