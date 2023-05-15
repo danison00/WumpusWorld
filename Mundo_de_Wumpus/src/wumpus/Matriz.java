@@ -37,6 +37,7 @@ public class Matriz {
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
 		adicionaElementos();
+	
 
 	}
 
@@ -250,9 +251,7 @@ public class Matriz {
 		}
 	}
 
-	public void addSensacoes() {
 
-	}
 
 	public boolean condicaoElementos(int lin, int col) {
 		boolean cond = true;
