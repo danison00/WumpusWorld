@@ -4,6 +4,8 @@ public class Ouro {
 
 	private final int id = 3;
 	private final String percepcao = "o";
+	int lin;
+	int col;
 	
 	
 	public int getId() {

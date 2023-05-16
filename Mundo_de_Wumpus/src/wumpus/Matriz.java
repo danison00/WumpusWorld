@@ -9,6 +9,7 @@ public class Matriz {
 
 	Random random = new Random();
 	private int[][] matriz;
+
 	private int tamanho;
 	private int[][] cse;
 	private int[][] csd;
@@ -21,6 +22,8 @@ public class Matriz {
 	private int[][] c;
 	int num_pocos;
 	int num_wumpus;
+	int posOuroL;
+	int posOuroC;
 
 	List<List<List<String>>> matrizSensacoes;
 	List<String> sensacoes;
@@ -205,7 +208,7 @@ public class Matriz {
 						if (matriz[lin][col - 1] != 1 && matriz[lin][col - 1] != 2
 								&& !matrizSensacoes.get(lin).get(col - 1).contains(wumpus.getSensacao())) {
 							matrizSensacoes.get(lin).get(col - 1).add(wumpus.getSensacao());
-						}
+							}
 					}
 
 					if (col + 1 < tamanho) {
@@ -245,6 +248,8 @@ public class Matriz {
 			if (condicaoElementos(lin, col)) {
 
 				matriz[lin][col] = ouro.addOuro();
+				ouro.lin = lin;
+				ouro.col = col;
 				matrizSensacoes.get(lin).get(col).add(ouro.getSensacao());
 				break;
 			}
@@ -325,5 +330,19 @@ public class Matriz {
 	public int[][] getMatriz() {
 		return matriz;
 	}
+
+	public void removeOuro(int l,int c) {
+		this.matriz[l][c] = 0;
+	
+	}
+
+
+	public void devolveOuro(int l, int c) {
+		this.matriz[l][c] = 3;
+	}
+	
+	
+	
+	
 
 }

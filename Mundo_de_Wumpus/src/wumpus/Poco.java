@@ -6,6 +6,7 @@ public class Poco {
 	private final int id = 1;
 	private final String sensacao = "b";
 	
+	
 
 	
 	

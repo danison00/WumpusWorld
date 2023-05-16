@@ -7,7 +7,8 @@ public class Main {
 
 		WumpussWorld wumpussWorld = new WumpussWorld(6);
 		wumpussWorld.run();
-
+		
+		
 	}
 
 }

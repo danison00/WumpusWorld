@@ -27,7 +27,6 @@ public class WumpussWorld {
 	final static int LESTE = 3;
 	final static int OESTE = 4;
 
-
 	// cria as variaveis do ambiente
 	int regiao;
 	int contVenceu;
@@ -35,23 +34,23 @@ public class WumpussWorld {
 	int contCaiuPoco;
 	int contPegouOuro;
 	int sentido_mover;
-	int contPartida=0;
+	int contPartida = 0;
+	int posOuroL;
+	int posOuroC;
 	Random random = new Random();
 	Agente agente;
 	Matriz matriz;
 	ArrayList<Integer> passosCol = new ArrayList<>();
 	ArrayList<Integer> passosLin = new ArrayList<>();
 
-	
 	public WumpussWorld(int tamanho) {
-		
+
 		matriz = new Matriz(tamanho);
 	}
 
 	public void imprimeMatriz() {
 
 		matriz.imprimeMatriz();
-
 
 	}
 
@@ -109,7 +108,6 @@ public class WumpussWorld {
 	public void iniciaPartida() {
 
 		agente = new Agente();
-		
 
 	}
 
@@ -208,6 +206,8 @@ public class WumpussWorld {
 
 	public void run() {
 
+		imprimeMatriz();
+
 		do {
 
 			passosLin = new ArrayList<>();
@@ -215,26 +215,26 @@ public class WumpussWorld {
 
 			passosLin.add(0);
 			passosCol.add(0);
-			
-			
 
 			iniciaPartida();
 
-			while (!agente.isVenceu() && !agente.isPerdeu()) {
+			do {
 
 				regiao = localizaRegiao(agente.getLocLin(), agente.getLocCol());
 
 				movimenta(regiao);
-				//System.out.println(agente.getLocLin()+" "+ agente.getLocCol()+", "+matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()]);
 				
+				
+
 				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == WUMPUS) {
 					agente.setDevorado(true);
 					contDevorado++;
 				}
 				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == OURO && !agente.isPegouOuro()) {
 					agente.setPegouOuro(true);
-					//matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()]=0;
+					matriz.removeOuro(agente.getLocLin(), agente.getLocCol());
 					contPegouOuro++;
+
 				}
 				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == POCO) {
 					agente.setCaiuPoco(true);
@@ -247,29 +247,30 @@ public class WumpussWorld {
 				}
 				if (agente.isCaiuPoco() || agente.isDevorado()) {
 					agente.setPerdeu(true);
+					matriz.devolveOuro(matriz.ouro.lin, matriz.ouro.col);
 
 				}
 
 				passosLin.add(agente.getLocLin());
 				passosCol.add(agente.getLocCol());
 
-			}
-			
-			contPartida++;
+			} while (!agente.isVenceu() && !agente.isPerdeu());
 
+			contPartida++;
 		} while (contVenceu < 1);
 
-		new Conteiner(passosLin, passosCol);
-		imprimeMatriz();
+		// new Conteiner(passosLin, passosCol);
+
 		System.out.println("Venceu: " + contVenceu);
 		System.out.println("Caiu no poco: " + contCaiuPoco);
 		System.out.println("Foi devorado: " + contDevorado);
 		System.out.println("Pegou o ouro: " + contPegouOuro);
-		System.out.println("Total de passos: " + (passosLin.size()-1));
-		System.out.println("Partidas: "+(contPartida-1));
-//
-//		for (int i = 0; i < passosLin.size(); i++)
-//			System.out.println(passosLin.get(i) + "," + passosCol.get(i));
+		System.out.println("Total de passos: " + (passosLin.size() - 1));
+		System.out.println("Partidas: " + (contPartida - 1));
+
+		System.out.println();
+
+		imprimeMatriz();
 
 	}
 
