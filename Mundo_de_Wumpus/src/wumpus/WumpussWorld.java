@@ -216,7 +216,7 @@ public class WumpussWorld {
 			passosLin.add(0);
 			passosCol.add(0);
 			
-			contPartida++;
+			
 
 			iniciaPartida();
 
@@ -255,7 +255,7 @@ public class WumpussWorld {
 
 			}
 			
-		
+			contPartida++;
 
 		} while (contVenceu < 1);
 
@@ -265,8 +265,8 @@ public class WumpussWorld {
 		System.out.println("Caiu no poco: " + contCaiuPoco);
 		System.out.println("Foi devorado: " + contDevorado);
 		System.out.println("Pegou o ouro: " + contPegouOuro);
-		System.out.println("Total de passos: " + passosLin.size());
-		System.out.println("Partidas: "+contPartida);
+		System.out.println("Total de passos: " + (passosLin.size()-1));
+		System.out.println("Partidas: "+(contPartida-1));
 //
 //		for (int i = 0; i < passosLin.size(); i++)
 //			System.out.println(passosLin.get(i) + "," + passosCol.get(i));
