@@ -1,31 +1,12 @@
 package wumpus;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import interfaceJogo.Conteiner;
 
-public class WumpussWorld {
-
-	// cria e inicia todas as constantes do ambiente
-	final static int POCO = 1;
-	final static int WUMPUS = 2;
-	final static int OURO = 3;
-
-	final static int CSE = 1;
-	final static int CSD = 2;
-	final static int CIE = 3;
-	final static int CID = 4;
-	final static int PE = 5;
-	final static int PD = 6;
-	final static int PS = 7;
-	final static int PI = 8;
-	final static int C = 9;
-
-	final static int NORTE = 1;
-	final static int SUL = 2;
-	final static int LESTE = 3;
-	final static int OESTE = 4;
+public class WumpussWorld extends Util {
 
 	// cria as variaveis do ambiente
 	int regiao;
@@ -37,65 +18,104 @@ public class WumpussWorld {
 	int contPartida = 0;
 	int posOuroL;
 	int posOuroC;
+	int contMatouWumpus = 0;
+	int tamanho;
+	
 	Random random = new Random();
 	Agente agente;
-	Matriz matriz;
+	Matriz matrizPrincipal;
+	int[][] matriz;
+	List<List<List<String>>> matrizSensacoes = new ArrayList<>();
+
 	ArrayList<Integer> passosCol = new ArrayList<>();
 	ArrayList<Integer> passosLin = new ArrayList<>();
 
 	public WumpussWorld(int tamanho) {
+		this.tamanho = tamanho;
+		matrizPrincipal = new Matriz(tamanho);
 
-		matriz = new Matriz(tamanho);
+		copiaMatrizPrincipal(tamanho);
+		copiaMatrizSesancoes(tamanho);
+
+	}
+
+	public void copiaMatrizPrincipal(int tamanho) {
+		matriz = new int[tamanho][tamanho];
+		for (int i = 0; i < tamanho; i++) {
+			for (int j = 0; j < tamanho; j++)
+				matriz[i][j] = matrizPrincipal.getMatriz()[i][j];
+
+		}
+	}
+
+	public void copiaMatrizSesancoes(int tamanho) {
+		for (int i = 0; i < tamanho; i++) {
+			List<List<String>> linha = new ArrayList<>();
+			for (int j = 0; j < tamanho; j++) {
+
+				List<String> sens = new ArrayList<>(matrizPrincipal.matrizSensacoes.get(i).get(j));
+
+				linha.add(sens);
+			}
+			matrizSensacoes.add(linha);
+		}
+
 	}
 
 	public void imprimeMatriz() {
-
-		matriz.imprimeMatriz();
+		System.out.println();
+		for (int i = 0; i < matriz[0].length; i++) {
+			for (int j = 0; j < matriz[0].length; j++) {
+				System.out.print(matriz[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
 
 	}
 
 	public int localizaRegiao(int lin, int col) {
 
-		int[][] cie = matriz.getCie();
+		int[][] cie = matrizPrincipal.getCie();
 		if (lin == cie[0][0] && col == cie[1][0])
 			return CIE;
 
-		int[][] cse = matriz.getCse();
+		int[][] cse = matrizPrincipal.getCse();
 		if (lin == cse[0][0] && col == cse[1][0])
 			return CSE;
 
-		int[][] csd = matriz.getCsd();
+		int[][] csd = matrizPrincipal.getCsd();
 		if (lin == csd[0][0] && col == csd[1][0])
 			return CSD;
 
-		int[][] cid = matriz.getCid();
+		int[][] cid = matrizPrincipal.getCid();
 		if (lin == cid[0][0] && col == cid[1][0])
 			return CID;
 
-		int[][] c = matriz.getC();
+		int[][] c = matrizPrincipal.getC();
 		for (int i = 0; i < c[0].length; i++) {
 			if (lin == c[0][i] && col == c[1][i])
 				return C;
 		}
 
-		int[][] pe = matriz.getPe();
+		int[][] pe = matrizPrincipal.getPe();
 		for (int i = 0; i < pe[0].length; i++) {
 			if (pe[0][i] == lin && pe[1][i] == col)
 				return PE;
 		}
-		int[][] pd = matriz.getPd();
+		int[][] pd = matrizPrincipal.getPd();
 		for (int i = 0; i < pd[0].length; i++) {
 			if (pd[0][i] == lin && pd[1][i] == col)
 				return PD;
 		}
 
-		int[][] ps = matriz.getPs();
+		int[][] ps = matrizPrincipal.getPs();
 		for (int i = 0; i < ps[0].length; i++) {
 			if (ps[0][i] == lin && ps[1][i] == col)
 				return PS;
 		}
 
-		int[][] pi = matriz.getPi();
+		int[][] pi = matrizPrincipal.getPi();
 		for (int i = 0; i < pi[0].length; i++) {
 			if (pi[0][i] == lin && pi[1][i] == col)
 				return PI;
@@ -108,6 +128,9 @@ public class WumpussWorld {
 	public void iniciaPartida() {
 
 		agente = new Agente();
+		copiaMatrizPrincipal(tamanho);
+		copiaMatrizSesancoes(tamanho);
+		
 
 	}
 
@@ -204,6 +227,63 @@ public class WumpussWorld {
 
 	}
 
+	public void verificaEstadoJogo() {
+		if (matriz[agente.getLocLin()][agente.getLocCol()] == WUMPUS) {
+			agente.setDevorado(true);
+			contDevorado++;
+		}
+
+		if (matriz[agente.getLocLin()][agente.getLocCol()] == POCO) {
+			agente.setCaiuPoco(true);
+			contCaiuPoco++;
+		}
+
+		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0) {
+			agente.setVenceu(true);
+			contVenceu++;
+		}
+		if (agente.isCaiuPoco() || agente.isDevorado()) {
+			agente.setPerdeu(true);
+
+		}
+
+	}
+
+	public void pegaOuro() {
+		if (matriz[agente.getLocLin()][agente.getLocCol()] == OURO && !agente.isPegouOuro()) {
+			agente.setPegouOuro(true);
+			matriz[agente.getLocLin()][agente.getLocCol()] = 0;
+			contPegouOuro++;
+		}
+
+	}
+
+	public void atira(int regiao) {
+
+		if (matrizSensacoes.get(agente.getLocLin()).get(agente.getLocCol())
+				.contains(matrizPrincipal.wumpus.getSensacao())) {
+
+			agente.atira(regiao);
+
+			if (matriz[agente.linTiro][agente.colTiro] == WUMPUS && agente.qtd_fl > 0) {
+				matriz[agente.linTiro][agente.colTiro] = 0;
+				contMatouWumpus++;
+				agente.qtd_fl--;
+				if (agente.qtd_fl == 0)
+					System.out.println("acabou as flechas\n");
+			}
+		}
+
+	}
+
+	public void realizaAcao(int regiao) {
+
+		atira(regiao);
+		pegaOuro();
+		movimenta(regiao);
+
+	}
+
 	public void run() {
 
 		imprimeMatriz();
@@ -222,34 +302,9 @@ public class WumpussWorld {
 
 				regiao = localizaRegiao(agente.getLocLin(), agente.getLocCol());
 
-				movimenta(regiao);
-				
-				
+				realizaAcao(regiao);
 
-				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == WUMPUS) {
-					agente.setDevorado(true);
-					contDevorado++;
-				}
-				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == OURO && !agente.isPegouOuro()) {
-					agente.setPegouOuro(true);
-					matriz.removeOuro(agente.getLocLin(), agente.getLocCol());
-					contPegouOuro++;
-
-				}
-				if (matriz.getMatriz()[agente.getLocLin()][agente.getLocCol()] == POCO) {
-					agente.setCaiuPoco(true);
-					contCaiuPoco++;
-				}
-
-				if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0) {
-					agente.setVenceu(true);
-					contVenceu++;
-				}
-				if (agente.isCaiuPoco() || agente.isDevorado()) {
-					agente.setPerdeu(true);
-					matriz.devolveOuro(matriz.ouro.lin, matriz.ouro.col);
-
-				}
+				verificaEstadoJogo();
 
 				passosLin.add(agente.getLocLin());
 				passosCol.add(agente.getLocCol());
@@ -264,14 +319,14 @@ public class WumpussWorld {
 		System.out.println("Venceu: " + contVenceu);
 		System.out.println("Caiu no poco: " + contCaiuPoco);
 		System.out.println("Foi devorado: " + contDevorado);
+		System.out.println("Matou wumpus: " + contMatouWumpus);
 		System.out.println("Pegou o ouro: " + contPegouOuro);
 		System.out.println("Total de passos: " + (passosLin.size() - 1));
-		System.out.println("Partidas: " + (contPartida - 1));
-
-		System.out.println();
+		System.out.println("Partidas: " + (contPartida));
 
 		imprimeMatriz();
-
+		System.out.println(passosLin);
+		System.out.println(passosCol);
 	}
 
 }

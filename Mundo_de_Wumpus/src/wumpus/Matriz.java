@@ -277,13 +277,14 @@ public class Matriz {
 	}
 
 	public void imprimeMatriz() {
-
+		System.out.println();
 		for (int i = 0; i < tamanho; i++) {
 			for (int j = 0; j < tamanho; j++) {
 				System.out.print(matriz[i][j] + " ");
 			}
 			System.out.println();
 		}
+		System.out.println();
 
 	}
 

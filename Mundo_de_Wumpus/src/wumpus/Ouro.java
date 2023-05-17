@@ -1,6 +1,6 @@
 package wumpus;
 
-public class Ouro {
+public class Ouro  {
 
 	private final int id = 3;
 	private final String percepcao = "o";
