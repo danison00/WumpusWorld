@@ -20,7 +20,7 @@ public class WumpussWorld extends Util {
 	int posOuroC;
 	int contMatouWumpus = 0;
 	int tamanho;
-	
+
 	Random random = new Random();
 	Agente agente;
 	Matriz matrizPrincipal;
@@ -130,7 +130,7 @@ public class WumpussWorld extends Util {
 		agente = new Agente();
 		copiaMatrizPrincipal(tamanho);
 		copiaMatrizSesancoes(tamanho);
-		
+		contMatouWumpus = 0;
 
 	}
 
@@ -238,7 +238,7 @@ public class WumpussWorld extends Util {
 			contCaiuPoco++;
 		}
 
-		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0) {
+		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0 && contMatouWumpus==2) {
 			agente.setVenceu(true);
 			contVenceu++;
 		}
@@ -263,15 +263,29 @@ public class WumpussWorld extends Util {
 		if (matrizSensacoes.get(agente.getLocLin()).get(agente.getLocCol())
 				.contains(matrizPrincipal.wumpus.getSensacao())) {
 
-			agente.atira(regiao);
+			if (agente.qtd_fl > 0) {
 
-			if (matriz[agente.linTiro][agente.colTiro] == WUMPUS && agente.qtd_fl > 0) {
-				matriz[agente.linTiro][agente.colTiro] = 0;
-				contMatouWumpus++;
+				agente.atira(regiao);
 				agente.qtd_fl--;
-				if (agente.qtd_fl == 0)
-					System.out.println("acabou as flechas\n");
+
+				if (matriz[agente.linTiro][agente.colTiro] == WUMPUS) {
+
+					matriz[agente.linTiro][agente.colTiro] = 0;
+
+					contMatouWumpus++;
+					if (contMatouWumpus == 2) {
+						System.out.println("matou todos os wumpus");
+					}
+					if (contMatouWumpus < 2) {
+						System.out.println(
+								"\n matou " + contMatouWumpus + " wumpus numero de fl: " + agente.qtd_fl + "\n");
+					}
+
+				}
 			}
+
+			if (agente.qtd_fl == 0)
+				System.out.println("acabou as flechas num de wumpus mortos: " + contMatouWumpus + "\n");
 		}
 
 	}
@@ -309,7 +323,7 @@ public class WumpussWorld extends Util {
 				passosLin.add(agente.getLocLin());
 				passosCol.add(agente.getLocCol());
 
-			} while (!agente.isVenceu() && !agente.isPerdeu());
+			} while (!agente.isVenceu() && !agente.isPerdeu() );
 
 			contPartida++;
 		} while (contVenceu < 1);
