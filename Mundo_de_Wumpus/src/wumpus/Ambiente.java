@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Matriz {
+public class Ambiente {
 
 	Random random = new Random();
 	private int[][] matriz;
@@ -29,10 +29,10 @@ public class Matriz {
 	Wumpus wumpus = new Wumpus();
 	Ouro ouro = new Ouro();
 
-	public Matriz(int tamanho) {
+	public Ambiente(int tamanho) {
 
-		this.matriz = new int[tamanho][tamanho];
 		this.tamanho = tamanho;
+		this.matriz = new int[tamanho][tamanho];
 		this.sensacoes = new ArrayList<>();
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
@@ -254,7 +254,7 @@ public class Matriz {
 
 
 	public boolean condicaoElementos(int lin, int col) {
-		boolean cond = true;
+		
 
 		if (matriz[lin][col] != 0 || (lin == 0 && col == 0)) {
 			return false;
@@ -267,7 +267,7 @@ public class Matriz {
 			return false;
 		}
 
-		return cond;
+		return true;
 
 	}
 
