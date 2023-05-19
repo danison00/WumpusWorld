@@ -30,6 +30,8 @@ public class Agente extends Util {
 	}
 
 	public int atira(int regiao) {
+		
+		qtd_fl--;
 
 		switch (regiao) {
 

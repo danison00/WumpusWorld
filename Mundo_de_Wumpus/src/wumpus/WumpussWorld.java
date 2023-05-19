@@ -49,6 +49,7 @@ public class WumpussWorld extends Util {
 	}
 
 	public void copiaMatrizSesancoes(int tamanho) {
+		matrizSensacoes = new ArrayList<>();
 		for (int i = 0; i < tamanho; i++) {
 			List<List<String>> linha = new ArrayList<>();
 			for (int j = 0; j < tamanho; j++) {
@@ -70,7 +71,6 @@ public class WumpussWorld extends Util {
 			}
 			System.out.println();
 		}
-		System.out.println();
 
 	}
 
@@ -238,7 +238,7 @@ public class WumpussWorld extends Util {
 			contCaiuPoco++;
 		}
 
-		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0 && contMatouWumpus==2) {
+		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0 && contMatouWumpus == 2) {
 			agente.setVenceu(true);
 			contVenceu++;
 		}
@@ -266,26 +266,15 @@ public class WumpussWorld extends Util {
 			if (agente.qtd_fl > 0) {
 
 				agente.atira(regiao);
-				agente.qtd_fl--;
 
 				if (matriz[agente.linTiro][agente.colTiro] == WUMPUS) {
 
 					matriz[agente.linTiro][agente.colTiro] = 0;
-
 					contMatouWumpus++;
-					if (contMatouWumpus == 2) {
-						System.out.println("matou todos os wumpus");
-					}
-					if (contMatouWumpus < 2) {
-						System.out.println(
-								"\n matou " + contMatouWumpus + " wumpus numero de fl: " + agente.qtd_fl + "\n");
-					}
 
 				}
 			}
 
-			if (agente.qtd_fl == 0)
-				System.out.println("acabou as flechas num de wumpus mortos: " + contMatouWumpus + "\n");
 		}
 
 	}
@@ -323,7 +312,7 @@ public class WumpussWorld extends Util {
 				passosLin.add(agente.getLocLin());
 				passosCol.add(agente.getLocCol());
 
-			} while (!agente.isVenceu() && !agente.isPerdeu() );
+			} while (!agente.isVenceu() && !agente.isPerdeu());
 
 			contPartida++;
 		} while (contVenceu < 1);
@@ -341,6 +330,15 @@ public class WumpussWorld extends Util {
 		imprimeMatriz();
 		System.out.println(passosLin);
 		System.out.println(passosCol);
+
+		for (int i = 0; i < matrizSensacoes.size(); i++) {
+			for (int j = 0; j < matrizSensacoes.size(); j++) {
+
+				System.out.print("\t" + matrizSensacoes.get(i).get(j));
+			}
+			System.out.println();
+
+		}
 	}
 
 }
