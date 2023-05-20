@@ -12,6 +12,7 @@ public class Poco {
 	
 	public int addPoco() {
 		return id;
+		
 	}
 	public int getId() {
 		return id;
