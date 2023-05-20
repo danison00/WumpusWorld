@@ -20,15 +20,15 @@ public class WumpussWorld extends Util {
 	int posOuroC;
 	int contMatouWumpus = 0;
 	int tamanho;
+	int[][] matriz;
 
 	Random random = new Random();
 	Agente agente;
 	Matriz matrizPrincipal;
-	int[][] matriz;
-	List<List<List<String>>> matrizSensacoes = new ArrayList<>();
 
-	ArrayList<Integer> passosCol = new ArrayList<>();
-	ArrayList<Integer> passosLin = new ArrayList<>();
+	List<List<List<String>>> matrizSensacoes = new ArrayList<>();
+	List<Integer> passosCol = new ArrayList<>();
+	List<Integer> passosLin = new ArrayList<>();
 
 	public WumpussWorld(int tamanho) {
 		this.tamanho = tamanho;
@@ -265,6 +265,15 @@ public class WumpussWorld extends Util {
 			for (int j = 0; j < matrizSensacoes.size(); j++) {
 
 				System.out.print("\t" + matrizSensacoes.get(i).get(j));
+			}
+			System.out.println();
+
+		}
+		System.out.println();
+		for (int i = 0; i < matrizPrincipal.matrizSensacoes.size(); i++) {
+			for (int j = 0; j < matrizPrincipal.matrizSensacoes.size(); j++) {
+
+				System.out.print("\t" + matrizPrincipal.matrizSensacoes.get(i).get(j));
 			}
 			System.out.println();
 
