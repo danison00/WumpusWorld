@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Matriz {
+public class Matriz extends Util{
 
 	Random random = new Random();
 	private int[][] matriz;
@@ -40,7 +40,7 @@ public class Matriz {
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
 		adicionaElementos();
-	
+	//	System.out.println(num_wumpus);
 
 	}
 
@@ -103,6 +103,8 @@ public class Matriz {
 		addWumpus();
 
 		addOuro();
+		
+		
 
 	}
 
@@ -119,7 +121,7 @@ public class Matriz {
 			num_pocos = (int) (tamanho / 1.4);
 			num_wumpus = (int) (tamanho / 2) - 1;
 		}
-
+	
 	}
 
 	public void addPocos() {

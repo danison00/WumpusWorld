@@ -1,9 +1,9 @@
 package wumpus;
 
-public class Wumpus {
+public class Wumpus extends Util{
 	
-	private final int id = 2;
-	private final String sensacao = "f";
+	private final static int id = 2;
+	private final static String sensacao = SENSACAO_WUMPUS;
 	int lin[];
 	int col[];
 	
@@ -14,7 +14,7 @@ public class Wumpus {
 	public int getId() {
 		return id;
 	}
-	public String getSensacao() {
+	public  String getSensacao() {
 		return sensacao;
 	}	
 	

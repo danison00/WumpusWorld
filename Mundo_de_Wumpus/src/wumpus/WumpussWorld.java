@@ -127,7 +127,7 @@ public class WumpussWorld extends Util {
 
 	public void iniciaPartida() {
 
-		agente = new Agente();
+		agente = new Agente(matrizPrincipal.num_wumpus);
 		copiaMatrizPrincipal(tamanho);
 		copiaMatrizSesancoes(tamanho);
 		contMatouWumpus = 0;
@@ -136,94 +136,7 @@ public class WumpussWorld extends Util {
 
 	public void movimenta(int regiao) {
 
-		switch (regiao) {
-
-		case CSE:
-			sentido_mover = random.nextInt(2);
-
-			if (sentido_mover == 0)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 1)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			break;
-
-		case CSD:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 1)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-			break;
-
-		case CIE:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			break;
-
-		case CID:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-			break;
-
-		case PE:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 1)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			break;
-
-		case PD:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-			if (sentido_mover == 1)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			break;
-
-		case PS:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 1)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 2)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-			break;
-
-		case PI:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-			if (sentido_mover == 1)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			break;
-
-		case C:
-			sentido_mover = random.nextInt(4);
-			if (sentido_mover == 0)
-				agente.setLocLin(agente.getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				agente.setLocLin(agente.getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 2)
-				agente.setLocCol(agente.getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 3)
-				agente.setLocCol(agente.getLocCol() - 1); // MOVER OESTE
-
-			break;
-		}
+		agente.movimenta(regiao);
 
 	}
 
@@ -238,7 +151,7 @@ public class WumpussWorld extends Util {
 			contCaiuPoco++;
 		}
 
-		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0 && contMatouWumpus == 2) {
+		if (agente.isPegouOuro() && agente.getLocLin() == 0 && agente.getLocCol() == 0 && contMatouWumpus == matrizPrincipal.num_wumpus) {
 			agente.setVenceu(true);
 			contVenceu++;
 		}
@@ -250,30 +163,46 @@ public class WumpussWorld extends Util {
 	}
 
 	public void pegaOuro() {
-		if (matriz[agente.getLocLin()][agente.getLocCol()] == OURO && !agente.isPegouOuro()) {
-			agente.setPegouOuro(true);
+		
+		boolean pegouOuro = agente.pegaOuro(matrizSensacoes);
+		
+		if(pegouOuro) {
+
 			matriz[agente.getLocLin()][agente.getLocCol()] = 0;
+			matrizSensacoes.get(agente.getLocLin()).get(agente.getLocCol()).remove(SENSACAO_OURO);
 			contPegouOuro++;
+			
 		}
+		
 
 	}
 
 	public void atira(int regiao) {
+		
+		Tiro tiro = agente.atira(regiao, matrizSensacoes);
 
-		if (matrizSensacoes.get(agente.getLocLin()).get(agente.getLocCol())
-				.contains(matrizPrincipal.wumpus.getSensacao())) {
+		if (tiro.atirou && matriz[tiro.lin][tiro.col] == WUMPUS) {
 
-			if (agente.qtd_fl > 0) {
+			matriz[tiro.lin][tiro.col] = 0;
+			try {
+				matrizSensacoes.get(tiro.lin+1).get(tiro.col).remove(SENSACAO_WUMPUS);				
+			
+			} catch (Exception e) {}
+			try {
+				matrizSensacoes.get(tiro.lin - 1).get(tiro.col).remove(SENSACAO_WUMPUS);
+			
+			} catch (Exception e) {}
+			try {
+				matrizSensacoes.get(tiro.lin).get(tiro.col-1).remove(SENSACAO_WUMPUS);
+				
+			} catch (Exception e) {}
+			try {
+				matrizSensacoes.get(tiro.lin).get(tiro.col + 1).remove(SENSACAO_WUMPUS);
+				
+			} catch (Exception e) {}
 
-				agente.atira(regiao);
 
-				if (matriz[agente.linTiro][agente.colTiro] == WUMPUS) {
-
-					matriz[agente.linTiro][agente.colTiro] = 0;
-					contMatouWumpus++;
-
-				}
-			}
+			contMatouWumpus++;
 
 		}
 
@@ -282,6 +211,7 @@ public class WumpussWorld extends Util {
 	public void realizaAcao(int regiao) {
 
 		atira(regiao);
+
 		pegaOuro();
 		movimenta(regiao);
 

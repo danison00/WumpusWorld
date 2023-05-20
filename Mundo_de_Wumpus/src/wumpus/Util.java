@@ -21,6 +21,23 @@ public class Util {
 	final static int LESTE = 3;
 	final static int OESTE = 4;
 	
-	final static int QTD_FLECHAS = 2;
+	
+	final static String SENSACAO_WUMPUS = "f";
+	final static String SENSACAO_OURO = "o";
+
+	
+	public class Tiro{
+		int lin;
+		int col;
+		boolean atirou;
+		
+		public Tiro(boolean atirou, int lin, int col) {
+			
+			this.lin = lin;
+			this.col = col;
+			this.atirou = atirou;
+			
+		}
+	}
 
 }
