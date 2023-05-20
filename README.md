@@ -1,6 +1,6 @@
 # WumpusWorld
 
-Este repositório consiste em um projeto para aplicar os conhecimentos adquiridos na disciplina de Inteligencia Computacional. Foi codificado usando a linguagem de programação Java e é composto por 5 branches:
+Este repositório consiste em um projeto para aplicar os conhecimentos adquiridos na disciplina de Inteligencia Computacional. Foi codificado usando a linguagem de programação Java e é composto por 4 branches:
 
 ## Main
 
