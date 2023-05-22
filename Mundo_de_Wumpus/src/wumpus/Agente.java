@@ -52,7 +52,7 @@ public class Agente extends Util {
 					int sentido_tiro = random.nextInt(2);
 
 					if (sentido_tiro == 0) {
-						linTiro = locLin++; // ATIRAR SUL
+						linTiro = locLin +  1; // ATIRAR SUL
 						colTiro = locCol;
 					}
 					if (sentido_tiro == 1) {
@@ -183,15 +183,16 @@ public class Agente extends Util {
 
 					break;
 				}
-				return new Tiro(true, linTiro, colTiro);
+				tiro = new Tiro(true, linTiro, colTiro);
 
+				return tiro;
 				
 			}
 
 		}
+		tiro = new Tiro(false, linTiro, colTiro);
 		
-		
-		return new Tiro(false, linTiro, colTiro);
+		return null;
 
 	}
 

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Matriz extends Util{
+public class Matriz extends Util {
 
 	Random random = new Random();
 	private int[][] matriz;
@@ -40,7 +40,7 @@ public class Matriz extends Util{
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
 		adicionaElementos();
-	//	System.out.println(num_wumpus);
+		// System.out.println(num_wumpus);
 
 	}
 
@@ -103,8 +103,6 @@ public class Matriz extends Util{
 		addWumpus();
 
 		addOuro();
-		
-		
 
 	}
 
@@ -121,7 +119,7 @@ public class Matriz extends Util{
 			num_pocos = (int) (tamanho / 1.4);
 			num_wumpus = (int) (tamanho / 2) - 1;
 		}
-	
+
 	}
 
 	public void addPocos() {
@@ -137,42 +135,36 @@ public class Matriz extends Util{
 
 					matriz[lin][col] = poco.addPoco();
 
-					if (matrizSensacoes.get(lin).get(col).contains(wumpus.getSensacao())) {
-
-						matrizSensacoes.get(lin).get(col).remove(wumpus.getSensacao());
-					}
-					if (matrizSensacoes.get(lin).get(col).contains(poco.getSensacao())) {
-
-						matrizSensacoes.get(lin).get(col).remove(poco.getSensacao());
-					}
-
-					if (col > 0) {
-						if (matriz[lin][col - 1] != 1 && matriz[lin][col - 1] != 2 && matriz[lin][col - 1] != 2
-								&& !matrizSensacoes.get(lin).get(col - 1).contains(poco.getSensacao())) {
-							matrizSensacoes.get(lin).get(col - 1).add(poco.getSensacao());
-						}
-					}
+//					if (matrizSensacoes.get(lin).get(col).contains(wumpus.getSensacao())) {
+//
+//						matrizSensacoes.get(lin).get(col).remove(wumpus.getSensacao());
+//					}
+//					if (matrizSensacoes.get(lin).get(col).contains(poco.getSensacao())) {
+//
+//						matrizSensacoes.get(lin).get(col).remove(poco.getSensacao());
+//					}
 
 					if (col + 1 < tamanho) {
-						if (matriz[lin][col + 1] != 1 && matriz[lin][col + 1] != 2 && matriz[lin][col + 1] != 2
-								&& !matrizSensacoes.get(lin).get(col + 1).contains(poco.getSensacao())) {
-							matrizSensacoes.get(lin).get(col + 1).add(poco.getSensacao());
-						}
+
+						matrizSensacoes.get(lin).get(col + 1).add(poco.getSensacao());
+
 					}
 
 					if (lin + 1 < tamanho) {
-						if (matriz[lin + 1][col] != 1 && matriz[lin + 1][col] != 2 && matriz[lin + 1][col] != 2
-								&& !matrizSensacoes.get(lin + 1).get(col).contains(poco.getSensacao())) 
-						{
-							matrizSensacoes.get(lin + 1).get(col).add(poco.getSensacao());
-						}
+
+						matrizSensacoes.get(lin + 1).get(col).add(poco.getSensacao());
+
 					}
 
 					if (lin > 0) {
-						if (matriz[lin - 1][col] != 1 && matriz[lin - 1][col] != 2 && matriz[lin - 1][col] != 2
-								&& !matrizSensacoes.get(lin - 1).get(col).contains(poco.getSensacao())) {
-							matrizSensacoes.get(lin - 1).get(col).add(poco.getSensacao());
-						}
+
+						matrizSensacoes.get(lin - 1).get(col).add(poco.getSensacao());
+
+					}
+					if (col > 0) {
+
+						matrizSensacoes.get(lin).get(col-1).add(poco.getSensacao());
+
 					}
 
 					break;
@@ -198,40 +190,35 @@ public class Matriz extends Util{
 				if (condicaoElementos(lin, col)) {
 
 					matriz[lin][col] = wumpus.addWumpus();
-					if (matrizSensacoes.get(lin).get(col).contains(wumpus.getSensacao())) {
-
-						matrizSensacoes.get(lin).get(col).remove(wumpus.getSensacao());
-					}
-					if (matrizSensacoes.get(lin).get(col).contains(poco.getSensacao())) {
-
-						matrizSensacoes.get(lin).get(col).remove(poco.getSensacao());
-					}
+//					if (matrizSensacoes.get(lin).get(col).contains(wumpus.getSensacao())) {
+//
+//						matrizSensacoes.get(lin).get(col).remove(wumpus.getSensacao());
+//					}
+//					if (matrizSensacoes.get(lin).get(col).contains(poco.getSensacao())) {
+//
+//						matrizSensacoes.get(lin).get(col).remove(poco.getSensacao());
+//					}
 					if (col > 0) {
-						if (matriz[lin][col - 1] != 1 && matriz[lin][col - 1] != 2
-								&& !matrizSensacoes.get(lin).get(col - 1).contains(wumpus.getSensacao())) {
-							matrizSensacoes.get(lin).get(col - 1).add(wumpus.getSensacao());
-							}
+
+						matrizSensacoes.get(lin).get(col - 1).add(wumpus.getSensacao());
+
 					}
 
 					if (col + 1 < tamanho) {
-						if (matriz[lin][col + 1] != 1 && matriz[lin][col + 1] != 2
-								&& !matrizSensacoes.get(lin).get(col + 1).contains(wumpus.getSensacao())) {
-							matrizSensacoes.get(lin).get(col + 1).add(wumpus.getSensacao());
-						}
+
+						matrizSensacoes.get(lin).get(col + 1).add(wumpus.getSensacao());
+
 					}
 
 					if (lin + 1 < tamanho) {
-						if (matriz[lin + 1][col] != 1 && matriz[lin + 1][col] != 2
-								&& !matrizSensacoes.get(lin + 1).get(col).contains(wumpus.getSensacao())) {
-							matrizSensacoes.get(lin + 1).get(col).add(wumpus.getSensacao());
-						}
+
+						matrizSensacoes.get(lin + 1).get(col).add(wumpus.getSensacao());
+
 					}
 
 					if (lin > 0) {
-						if (matriz[lin - 1][col] != 1 && matriz[lin - 1][col] != 2
-								&& !matrizSensacoes.get(lin - 1).get(col).contains(wumpus.getSensacao())) {
-							matrizSensacoes.get(lin - 1).get(col).add(wumpus.getSensacao());
-						}
+
+						matrizSensacoes.get(lin - 1).get(col).add(wumpus.getSensacao());
 
 					}
 					break;
@@ -257,8 +244,6 @@ public class Matriz extends Util{
 			}
 		}
 	}
-
-
 
 	public boolean condicaoElementos(int lin, int col) {
 		boolean cond = true;
@@ -334,18 +319,13 @@ public class Matriz extends Util{
 		return matriz;
 	}
 
-	public void removeOuro(int l,int c) {
+	public void removeOuro(int l, int c) {
 		this.matriz[l][c] = 0;
-	
-	}
 
+	}
 
 	public void devolveOuro(int l, int c) {
 		this.matriz[l][c] = 3;
 	}
-	
-	
-	
-	
 
 }

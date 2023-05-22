@@ -6,14 +6,14 @@ import java.util.List;
 public class teste {
 
 	public static void main(String[] args) {
-		int tamanho = 7;
-		Matriz mat = new Matriz(7);
+		int tamanho = 5;
+		Matriz mat = new Matriz(tamanho);
 		List<List<List<String>>> matrizSensacoes = new ArrayList<>();
 
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < tamanho; i++) {
 			List<List<String>> linha = new ArrayList<>();
-			for (int j = 0; j < 7; j++) {
+			for (int j = 0; j < tamanho; j++) {
 				
 				List<String> sens = new ArrayList<>(mat.matrizSensacoes.get(i).get(j));
 			
@@ -23,7 +23,7 @@ public class teste {
 		}
 
 	
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < tamanho; i++) {
 			if (matrizSensacoes.get(1).get(i).contains("b")) {
 				matrizSensacoes.get(1).get(i).remove("b");
 
@@ -35,8 +35,7 @@ public class teste {
 
 		}
 
-		System.out.println(mat.matrizSensacoes.get(1));
-		System.out.println(matrizSensacoes.get(1));
+		mat.imprimeMatriz();
 
 	}
 
