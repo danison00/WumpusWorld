@@ -1,5 +1,7 @@
 package wumpus;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Agente extends Util {
@@ -15,7 +17,8 @@ public class Agente extends Util {
 	private boolean devorado;
 	private boolean perdeu;
 	int qtd_fl = QTD_FLECHAS;
-
+	List<String> listaSensacoes;
+	Memoria_raciocinio memoria;
 
 	public Agente() {
 
@@ -26,9 +29,34 @@ public class Agente extends Util {
 		this.caiuPoco = false;
 		this.devorado = false;
 		this.perdeu = false;
+		memoria = new Memoria_raciocinio();
 
 	}
 
+	public void movimenta() {
+		
+		
+		
+		
+	}
+	
+	public void mapeiaCasaAdjacentes(){
+		
+		if(listaSensacoes.isEmpty()) {
+			
+		}
+		
+	}
+	public void acoes(List<String> matrizSensacoes) {
+		
+		this.listaSensacoes = new ArrayList<>(matrizSensacoes);
+		
+		memoria.mapa.get(locLin).get(locCol).add("*");
+		
+		mapeiaCasaAdjacentes();
+		
+	}
+	
 	public int atira(int regiao) {
 		
 		qtd_fl--;

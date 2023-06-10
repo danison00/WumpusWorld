@@ -1,24 +1,111 @@
 package wumpus;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Exemplo {
-    public static void main(String[] args) {
-        // Criando a lista original
-        List<String> listaOriginal = new ArrayList<>();
-        listaOriginal.add("Item 1");
-        listaOriginal.add("Item 2");
-        listaOriginal.add("Item 3");
+	public static void main(String[] args) throws InterruptedException {
 
-        // Fazendo uma cópia da lista
-        List<String> listaCopia = new ArrayList<>(listaOriginal);
+		Memoria_raciocinio m = new Memoria_raciocinio();
+		Sensacoes s = new Sensacoes();
+		int l = 0; int c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 1; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 3; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 1; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 1; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 0; c = 0; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 0; c = 1; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 0; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 1; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();		
+		l = 3; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		
+		l = 2; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 2; c = 3; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 3; c = 3; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 4; c = 3; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 4; c = 2; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 1; c = 3; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l =2; c = 4; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		l = 4; c = 4; 
+		m.movimentar(l, c, s.matrizSensacoes.get(l).get(c));
+		Thread.sleep(2000);
+		m.analiseMapeamento();
+		
+		
+		m.mostrarMapa();
 
-        // Alterando a cópia da lista
-        listaCopia.set(0, "Item alterado");
+		
+		
+		
 
-        // Exibindo as listas
-        System.out.println("Lista original: " + listaOriginal);
-        System.out.println("Lista cópia: " + listaCopia);
-    }
+		
+	}
+	public void movimentar(int l, int c) {
+		
+	}
 }
