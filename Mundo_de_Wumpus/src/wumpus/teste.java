@@ -7,7 +7,7 @@ public class teste {
 
 	public static void main(String[] args) {
 		int tamanho = 5;
-		Matriz mat = new Matriz(tamanho);
+		Matriz mat = new Matriz(tamanho, true);
 		List<List<List<String>>> matrizSensacoes = new ArrayList<>();
 
 		
@@ -15,7 +15,7 @@ public class teste {
 			List<List<String>> linha = new ArrayList<>();
 			for (int j = 0; j < tamanho; j++) {
 				
-				List<String> sens = new ArrayList<>(mat.matrizSensacoes.get(i).get(j));
+				List<String> sens = new ArrayList<>(mat.getMatrizSensacoes().get(i).get(j));
 			
 				linha.add(sens);
 			}

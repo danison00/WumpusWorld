@@ -1,14 +1,9 @@
 package wumpus;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
 public class Agente extends Util {
-	
-	
 
 	Random random = new Random();
 	private int locLin;
@@ -33,11 +28,21 @@ public class Agente extends Util {
 		this.devorado = false;
 		this.perdeu = false;
 		this.qtd_fl = qtd_flechas;
-		//System.out.println(qtd_flechas);
+		// System.out.println(qtd_flechas);
 	}
-	
-	
-	
+
+	public Agente() {
+
+		this.locLin = 0;
+		this.locCol = 0;
+		this.venceu = false;
+		this.pegouOuro = false;
+		this.caiuPoco = false;
+		this.devorado = false;
+		this.perdeu = false;
+
+	}
+
 	public Tiro atira(int regiao, List<List<List<String>>> matrizSensacoes) {
 
 		if (matrizSensacoes.get(getLocLin()).get(getLocCol()).contains(SENSACAO_WUMPUS)) {
@@ -52,7 +57,7 @@ public class Agente extends Util {
 					int sentido_tiro = random.nextInt(2);
 
 					if (sentido_tiro == 0) {
-						linTiro = locLin +  1; // ATIRAR SUL
+						linTiro = locLin + 1; // ATIRAR SUL
 						colTiro = locCol;
 					}
 					if (sentido_tiro == 1) {
@@ -186,118 +191,65 @@ public class Agente extends Util {
 				tiro = new Tiro(true, linTiro, colTiro);
 
 				return tiro;
-				
+
 			}
 
 		}
 		tiro = new Tiro(false, linTiro, colTiro);
-		
+
 		return null;
 
 	}
 
-	public boolean pegaOuro(List<List<List<String>>> matrizSensacoes) {
-		
-		if(matrizSensacoes.get(locLin).get(locCol).contains(SENSACAO_OURO)) {
-			this.pegouOuro = true;
-			return true;
+	public boolean pegaOuro(List<String> sensacao) {
+
+		if (sensacao != null) {
+			if (sensacao.contains(SENSACAO_OURO)) {
+				this.pegouOuro = true;
+				return true;
+			}
 		}
 		return false;
-		
+
 	}
 
-	public void movimenta(int regiao) {
-		
-		switch (regiao) {
+	public void movimenta(String sentido) {
 
-		case CSE:
-			int sentido_mover = random.nextInt(2);
+		switch (sentido) {
 
-			if (sentido_mover == 0)
-				locLin++;// MOVER SUL
-			if (sentido_mover == 1)
-				locCol++; // MOVER LESTE
+		case "N":
+			setLocLin(getLocLin() - 1); // MOVER NORTE
 			break;
 
-		case CSD:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				setLocLin(getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 1)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
+		case "S":
+
+			setLocLin(getLocLin() + 1); // MOVER SUL
 			break;
 
-		case CIE:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				setLocCol(getLocCol() + 1); // MOVER LESTE
+		case "L":
+
+			setLocCol(getLocCol() + 1); // MOVER LESTE
 			break;
 
-		case CID:
-			sentido_mover = random.nextInt(2);
-			if (sentido_mover == 0)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
-			break;
+		case "O":
 
-		case PE:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				setLocCol(getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 1)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				setLocLin(getLocLin() + 1); // MOVER SUL
-			break;
-
-		case PD:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
-			if (sentido_mover == 1)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				setLocLin(getLocLin() + 1); // MOVER SUL
-			break;
-
-		case PS:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				setLocCol(getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 1)
-				setLocLin(getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 2)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
-			break;
-
-		case PI:
-			sentido_mover = random.nextInt(3);
-			if (sentido_mover == 0)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
-			if (sentido_mover == 1)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 2)
-				setLocCol(getLocCol() + 1); // MOVER LESTE
-			break;
-
-		case C:
-			sentido_mover = random.nextInt(4);
-			if (sentido_mover == 0)
-				setLocLin(getLocLin() - 1); // MOVER NORTE
-			if (sentido_mover == 1)
-				setLocLin(getLocLin() + 1); // MOVER SUL
-			if (sentido_mover == 2)
-				setLocCol(getLocCol() + 1); // MOVER LESTE
-			if (sentido_mover == 3)
-				setLocCol(getLocCol() - 1); // MOVER OESTE
-
+			setLocCol(getLocCol() - 1); // MOVER OESTE
 			break;
 		}
 
 	}
+
+	public void acao(String acao, List<String> sensacao) {
+
+		if (acao.equals("P")) {
+			pegaOuro(sensacao);
+			return;
+		}
+
+		movimenta(acao);
+
+	}
+
 	public int getLocLin() {
 		return locLin;
 	}
@@ -354,5 +306,4 @@ public class Agente extends Util {
 		this.perdeu = perdeu;
 	}
 
-	
 }

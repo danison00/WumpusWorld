@@ -1,7 +1,6 @@
 package wumpus;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -25,14 +24,14 @@ public class Matriz extends Util {
 	int posOuroL;
 	int posOuroC;
 
-	List<List<List<String>>> matrizSensacoes;
+	private List<List<List<String>>> matrizSensacoes;
 	List<String> sensacoes;
 
 	Poco poco = new Poco();
 	Wumpus wumpus = new Wumpus();
 	Ouro ouro = new Ouro();
 
-	public Matriz(int tamanho) {
+	public Matriz(int tamanho, boolean imprime) {
 
 		this.matriz = new int[tamanho][tamanho];
 		this.tamanho = tamanho;
@@ -40,7 +39,9 @@ public class Matriz extends Util {
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
 		adicionaElementos();
-		// System.out.println(num_wumpus);
+		if(imprime) {
+			imprimeMatriz();
+		}
 
 	}
 
@@ -273,6 +274,10 @@ public class Matriz extends Util {
 		}
 		System.out.println();
 
+	}
+	
+	public List<List<List<String>>> getMatrizSensacoes() {
+		return matrizSensacoes;
 	}
 
 	public int getTamanho() {

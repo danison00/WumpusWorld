@@ -33,12 +33,8 @@ public class WumpussWorld extends Util {
 	public WumpussWorld(int tamanho) {
 		this.tamanho = tamanho;
 
-		matrizPrincipal = new Matriz(tamanho);
+		matrizPrincipal = new Matriz(tamanho, true);
 	
-
-			matrizPrincipal = new Matriz(tamanho);
-
-		
 
 		copiaMatrizPrincipal(tamanho);
 		copiaMatrizSesancoes(tamanho);
@@ -60,7 +56,7 @@ public class WumpussWorld extends Util {
 			List<List<String>> linha = new ArrayList<>();
 			for (int j = 0; j < tamanho; j++) {
 
-				List<String> sens = new ArrayList<>(matrizPrincipal.matrizSensacoes.get(i).get(j));
+				List<String> sens = new ArrayList<>(matrizPrincipal.getMatrizSensacoes().get(i).get(j));
 
 				linha.add(sens);
 			}
@@ -142,7 +138,7 @@ public class WumpussWorld extends Util {
 
 	public void movimenta(int regiao) {
 
-		agente.movimenta(regiao);
+		//agente.movimenta(regiao);
 
 	}
 
@@ -175,7 +171,7 @@ public class WumpussWorld extends Util {
 
 	public void pegaOuro() {
 
-		boolean pegouOuro = agente.pegaOuro(matrizSensacoes);
+	/*	boolean pegouOuro = agente.pegaOuro(matrizSensacoes);
 
 		if (pegouOuro) {
 
@@ -183,7 +179,7 @@ public class WumpussWorld extends Util {
 			matrizSensacoes.get(agente.getLocLin()).get(agente.getLocCol()).remove(SENSACAO_OURO);
 			contPegouOuro++;
 
-		}
+		}*/
 
 	}
 
@@ -299,10 +295,10 @@ public class WumpussWorld extends Util {
 
 		}
 		System.out.println();
-		for (int i = 0; i < matrizPrincipal.matrizSensacoes.size(); i++) {
-			for (int j = 0; j < matrizPrincipal.matrizSensacoes.size(); j++) {
+		for (int i = 0; i < matrizPrincipal.getMatrizSensacoes().size(); i++) {
+			for (int j = 0; j < matrizPrincipal.getMatrizSensacoes().size(); j++) {
 
-				System.out.print("\t" + matrizPrincipal.matrizSensacoes.get(i).get(j));
+				System.out.print("\t" + matrizPrincipal.getMatrizSensacoes().get(i).get(j));
 			}
 			System.out.println();
 
