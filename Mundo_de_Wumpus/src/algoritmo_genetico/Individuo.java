@@ -22,7 +22,6 @@ public class Individuo implements Comparable<Individuo>{
 
 	@Override
 	public int compareTo(Individuo o) {
-		// TODO Auto-generated method stub
 		return o.pontuacao - this.pontuacao;
 	}
 	
