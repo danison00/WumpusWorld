@@ -25,32 +25,32 @@ public class Run {
 
 	public void start() {
 
-		int i = 1;
-		int index=0;
+		int i = 0;
+		boolean cond = true;
 		geracoes.add(reproducao.geracaoZero(num_individuos, min_cromossomos, max_cromossomos)); // geração 0
 		List<Individuo> melhores = ambienteDeTeste.testaIndividuos(geracoes.get(0)); // testa geração 0
 
-		while (i <= 10000) {
+		while (cond) {
 			
 			geracoes.add(reproducao.reproduz(melhores)); // geração 1
-			melhores = ambienteDeTeste.testaIndividuos(geracoes.get(index));// testa geração 1
+			melhores = ambienteDeTeste.testaIndividuos(geracoes.get(i));// testa geração 1
 
 			i++;
-			index++;
-			if(i%100==0) {
-				System.out.print("\r" + i);
+	
 
-				System.out.flush();
+			for(Individuo in : melhores){
+				
+				if (in.vence && in.pontuacao>85.75) {
+//					System.out.println("##########################################");
+//					System.out.println(in.cromossomos);
+//					System.out.println(in.pontuacao);
+//					System.out.println("##########################################");
+					cond=false;
+					
+					
+				}
 				
 			}
-			if(index==800) {
-				geracoes= new ArrayList<>();
-				System.out.println("limpou");
-				System.out.println(geracoes.size());
-				index=0;
-				System.out.print("\r" + i);
-			}
-			
 			
 		}
 

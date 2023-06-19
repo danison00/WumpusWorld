@@ -246,6 +246,8 @@ public class Agente extends Util {
 			return;
 		}
 
+		
+
 		movimenta(acao);
 
 	}

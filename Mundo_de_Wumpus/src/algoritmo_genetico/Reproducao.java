@@ -23,7 +23,7 @@ public class Reproducao {
 
 	public List<Individuo> reproduz(List<Individuo> individuos) {
 
-		//System.out.print("\nReporduzindo melhores individuos da geração "+geracao_corrente+"... ");
+		System.out.print("\nReporduzindo melhores individuos da geração "+(geracao_corrente-1)+"... ");
 		geracao_corrente++;
 		
 		List<Individuo> novos_individuos = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Reproducao {
 
 		novos_individuos = elimina_prematuros(novos_individuos);
 		
-		//System.out.println("fim");
+		System.out.println("fim");
 		
 		//imprimeGeracao(novos_individuos);
 

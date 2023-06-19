@@ -7,8 +7,11 @@ public class Individuo implements Comparable<Individuo>{
 	
 	int geracao;
 	int num_genes;
+	boolean vence;
+	boolean caiu;
+	boolean saiu;
 	String id;
-	int pontuacao = 0;
+	float pontuacao = 0;
 	List<String> cromossomos;
 	
 
@@ -16,14 +19,24 @@ public class Individuo implements Comparable<Individuo>{
 		this.geracao = geracao;
 		this.num_genes = num_genes;
 		this.id = id;
+		caiu = false;
+		saiu = false;
+		this.vence=false;
 		this.cromossomos = new ArrayList<>(cromossomos);
 	}
 
 
 	@Override
 	public int compareTo(Individuo o) {
-		return o.pontuacao - this.pontuacao;
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+
+//	@Override
+//	public int compareTo(Individuo o) {
+//		return o.pontuacao - this.pontuacao;
+//	}
 	
 	
 	

@@ -3,7 +3,7 @@ package wumpus;
 public class Util {
 	
 	public final static int POCO = 1;
-	final static int WUMPUS = 2;
+	public final static int WUMPUS = 2;
 	public final static int OURO = 3;
 
 	final static int CSE = 1;
