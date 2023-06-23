@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import interfaceJogo.Conteiner;
+//import interfaceJogo.Conteiner;
 
 public class WumpussWorld extends Util {
 

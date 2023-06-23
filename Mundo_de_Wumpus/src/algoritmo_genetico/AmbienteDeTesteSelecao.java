@@ -1,7 +1,7 @@
 package algoritmo_genetico;
 
 import java.util.List;
-import java.util.concurrent.ThreadFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,6 +31,7 @@ public class AmbienteDeTesteSelecao extends Util {
 		maiorCro = menorCro = 0;
 		
 		for (Individuo individuo : individuos) {
+		
 			int lin = 0, col = 0;
 			agente = new Agente();
 			contDevorado = contAndouDentro = contCaiuPoco = contPegar = geneP = contPegouOuro = contSaiu = geneA = contPegouEmVao = 0;
@@ -38,9 +39,13 @@ public class AmbienteDeTesteSelecao extends Util {
 			float pegouEmVao = 0, andouDentro = 0, pegar = 0, pegou = 0, naoCaiuPoco = 0, saiu = 0, naoDevorado = 0;
 
 			List<String> cromossomos = new ArrayList<String>(individuo.cromossomos);
-
+			boolean ultimo = false;
 			for (String acao : cromossomos) {
-
+				
+				if((geneP+geneA+1)==cromossomos.size()) {
+					ultimo=true;
+				}
+				
 				if (acao.equals("P")) {
 
 					geneP++;
@@ -59,7 +64,7 @@ public class AmbienteDeTesteSelecao extends Util {
 				}
 
 				
-				pontuaIndividuo(agente.getLocLin(), agente.getLocCol(), acao, individuo);
+				pontuaIndividuo(agente.getLocLin(), agente.getLocCol(), acao, individuo, ultimo);
 
 			}
 	
@@ -69,9 +74,9 @@ public class AmbienteDeTesteSelecao extends Util {
 
 			if (geneA > 0) {
 
-				andouDentro = (float) (contAndouDentro) * (float) 100.0 / (float) geneA * (float) 0.08;
-				naoCaiuPoco = (float) (geneA - contCaiuPoco) * (float) 100.0 / (float) geneA * (float) 0.08;
-				naoDevorado = (float) (geneA - contDevorado) * (float) 100.0 / (float) geneA * (float) 0.08;
+				andouDentro = (float) (contAndouDentro) * (float) 100.0 / (float) geneA * (float) 0.18;
+				naoCaiuPoco = (float) (geneA - contCaiuPoco) * (float) 100.0 / (float) geneA * (float) 0.18;
+				naoDevorado = (float) (geneA - contDevorado) * (float) 100.0 / (float) geneA * (float) 0.18;
 			
 			}
 			
@@ -79,14 +84,15 @@ public class AmbienteDeTesteSelecao extends Util {
 
 		
 			if (contPegouOuro > 0) {
-
-				 pegou = (float)(100.0 *0.2533) ;
-
+			
+				 pegou = (float)(100.0 *0.20) ;
+				
 			}
 		
 			if(geneP>0) {
-				pegouEmVao = (float)((float)contPegouEmVao*100.0/geneP*0.0295);
-				//System.out.println(individuo.id+": "+pegouEmVao);
+				pegouEmVao = (float)((float)contPegouEmVao*100.0/geneP*0.05);
+				
+			
 			}
 			
 			if (geneP > 0) {
@@ -101,7 +107,7 @@ public class AmbienteDeTesteSelecao extends Util {
 			individuo.pontuacao = andouDentro + naoCaiuPoco+naoDevorado+pegou-pegouEmVao;// + pegar+-pegouEmVao;
 	
 			if (venceu) {
-				individuo.pontuacao += (float)100 * (float)0.38;
+				individuo.pontuacao += (float)100 * (float)0.25;
 				
 			}
 
@@ -113,19 +119,21 @@ public class AmbienteDeTesteSelecao extends Util {
 			}
 
 			if (individuo.cromossomos.size() > (tamanho * tamanho)) {
-				// individuo.pontuacao -= 0.3;
+				 individuo.pontuacao -= 1.0;
 			}
-			// if (individuo.vence && !individuo.caiu) break;
+		
 
 		}
 		System.out.println("fim\n");
-		System.out.println("maior: "+maiorCro);
-		System.out.println("menor: "+menorCro);
+	//	System.out.println("maior: "+maiorCro);
+		//System.out.println("menor: "+menorCro);
 
 		// imprimePontuacoes(individuos);
 		List<Individuo> melhores = selecionaMelhores(individuos);
 		
 
+		
+		//
 		
 		imprimeMelhores(melhores);
 		ambiente.imprimeMatriz();
@@ -134,21 +142,23 @@ public class AmbienteDeTesteSelecao extends Util {
 
 	}
 
-	public void pontuaIndividuo(int lin, int col, String acao, Individuo individuo) {
+	public void pontuaIndividuo(int lin, int col, String acao, Individuo individuo, boolean ultimo) {
 
-		
+			if(ultimo && lin == 0 && col==0) {
+				individuo.pontuacao+=(float)2.0;
+			}
 
 			if (lin >= 0 && lin < tamanho && col >= 0 && col < tamanho && !acao.equals("P")) {
 				contAndouDentro++;
 				if (ambiente.getMatriz()[lin][col] == POCO) {
-					// individuo.caiu = true;
+					 individuo.caiu = true;
 					// agente.setCaiuPoco(true);
 					contCaiuPoco++;
 					// System.out.println("caiu poco: " + contCaiuPoco);
 
 				}
 				if (ambiente.getMatriz()[lin][col] == WUMPUS) {
-
+					individuo.devorado=true;
 					contDevorado++;
 
 				}
@@ -191,6 +201,7 @@ public class AmbienteDeTesteSelecao extends Util {
 
 			} else {
 				contSaiu++;
+				individuo.saiu=true;
 			}
 		
 
@@ -199,7 +210,7 @@ public class AmbienteDeTesteSelecao extends Util {
 	public void imprimePontuacoes(List<Individuo> individuos) {
 
 		for (Individuo individuo : individuos) {
-			System.out.println(
+			 System.out.println(
 					"individuo " + individuo.id + ": " + individuo.pontuacao + " pts" + "    " + individuo.cromossomos);
 
 		}
@@ -240,13 +251,16 @@ public class AmbienteDeTesteSelecao extends Util {
 				menorCro = individuo.cromossomos.size();
 			}
 		}
+		int cont=0;
 		for(Individuo individuo: melhoresIndividuos) {
-			if(individuo.cromossomos.size()<maiorCro) {
-				individuo.pontuacao+=(float)0.3;
+			if(individuo.cromossomos.size()<(tamanho*tamanho)) {
+				individuo.pontuacao+=(float)1.5;
 			}
+			cont++;
+			//if(cont>5) break;
 		}
 		
-		Collections.sort(individuos, new Comparator<Individuo>() {
+		Collections.sort(melhoresIndividuos, new Comparator<Individuo>() {
 			@Override
 			public int compare(Individuo i1, Individuo i2) {
 

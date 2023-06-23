@@ -10,6 +10,7 @@ public class Individuo implements Comparable<Individuo>{
 	boolean vence;
 	boolean caiu;
 	boolean saiu;
+	boolean devorado;
 	String id;
 	float pontuacao = 0;
 	List<String> cromossomos;
@@ -19,6 +20,7 @@ public class Individuo implements Comparable<Individuo>{
 		this.geracao = geracao;
 		this.num_genes = num_genes;
 		this.id = id;
+		devorado=false;
 		caiu = false;
 		saiu = false;
 		this.vence=false;

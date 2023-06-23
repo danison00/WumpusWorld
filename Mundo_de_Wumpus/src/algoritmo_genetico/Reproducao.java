@@ -23,7 +23,7 @@ public class Reproducao {
 
 	public List<Individuo> reproduz(List<Individuo> individuos) {
 
-		System.out.print("\nReporduzindo melhores individuos da geração "+(geracao_corrente-1)+"... ");
+		System.out.print("\nReporduzindo melhores individuos da geração "+(geracao_corrente)+"... ");
 		geracao_corrente++;
 		
 		List<Individuo> novos_individuos = new ArrayList<>();

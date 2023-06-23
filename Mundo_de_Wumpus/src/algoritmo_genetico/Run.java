@@ -1,5 +1,6 @@
 package algoritmo_genetico;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +24,7 @@ public class Run {
 		this.geracão_corrente = 0;
 	}
 
-	public void start() {
+	public void start() throws IOException, InterruptedException {
 
 		int i = 0;
 		boolean cond = true;
@@ -32,19 +33,23 @@ public class Run {
 
 		while (cond) {
 			
+			if(i%100==0) {
+				geracoes = new ArrayList<>();;
+				i=0;
+				System.out.println("################# Limpou memória ####################");
+			}
+			
 			geracoes.add(reproducao.reproduz(melhores)); // geração 1
 			melhores = ambienteDeTeste.testaIndividuos(geracoes.get(i));// testa geração 1
 
 			i++;
-	
+			
 
 			for(Individuo in : melhores){
 				
-				if (in.vence && in.pontuacao>85.75) {
-//					System.out.println("##########################################");
-//					System.out.println(in.cromossomos);
-//					System.out.println(in.pontuacao);
-//					System.out.println("##########################################");
+				if (in.vence && !in.caiu && !in.devorado && !in.saiu) {
+					
+					System.out.println(in.vence+" "+in.caiu+" "+in.devorado+" "+in.saiu);
 					cond=false;
 					
 					
@@ -54,11 +59,17 @@ public class Run {
 			
 		}
 
+		  Process process = Runtime.getRuntime().exec("clear");
+            
+            // Aguarda a conclusão do comando
+            process.waitFor();
+		ambienteDeTeste.ambiente.imprimeMatriz();
 		for (Individuo individuo : melhores) {
 			System.out.println(
 					"individuo " + individuo.id + ": " + individuo.pontuacao + " pts" + "    " + individuo.cromossomos);
 
 		}
+	
 
 	}
 
