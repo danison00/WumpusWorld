@@ -11,6 +11,11 @@ public class Individuo implements Comparable<Individuo>{
 	boolean caiu;
 	boolean saiu;
 	boolean devorado;
+	boolean pegouOuro=false;
+	boolean voltou=false;
+	boolean morreu=false;
+	boolean ultGeneCasaZero =false;
+	boolean ideal=false;
 	String id;
 	float pontuacao = 0;
 	List<String> cromossomos;

@@ -82,11 +82,12 @@ public class Reproducao {
 
 		}
 
-		String mutacao1 = cromossomoFilho1.get(indexMutacao1);
-		String mutacao2 = cromossomoFilho1.get(indexMutacao2);
+		String mutacao1 = lista_genes.get(random.nextInt(5));
+		String mutacao2 = lista_genes.get(random.nextInt(5));
 
-		cromossomoFilho1.set(indexMutacao2, mutacao1);
-		cromossomoFilho1.set(indexMutacao1, mutacao2);
+	
+		cromossomoFilho1.add(indexMutacao2, mutacao1);
+		cromossomoFilho1.add(indexMutacao1, mutacao2);
 
 		indexMutacao1 = random.nextInt(cromossomoFilho2.size());
 		indexMutacao2 = random.nextInt(cromossomoFilho2.size());
@@ -98,11 +99,11 @@ public class Reproducao {
 
 		}
 
-		mutacao1 = cromossomoFilho2.get(indexMutacao1);
-		mutacao2 = cromossomoFilho2.get(indexMutacao2);
+		mutacao1 = lista_genes.get(random.nextInt(4));
+		mutacao2 = lista_genes.get(random.nextInt(4));
 
-		cromossomoFilho2.set(indexMutacao2, mutacao1);
-		cromossomoFilho2.set(indexMutacao1, mutacao2);
+		cromossomoFilho2.add(indexMutacao2, mutacao1);
+		cromossomoFilho2.add(indexMutacao1, mutacao2);
 
 		Individuo filho1 = new Individuo(geracao_corrente, cromossomoFilho1.size(), Integer.toString(id), cromossomoFilho1);
 		id++;
