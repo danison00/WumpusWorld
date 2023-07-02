@@ -39,12 +39,14 @@ public class Matriz extends Util {
 		this.matrizSensacoes = new ArrayList<>();
 		mapeiaMatriz();
 		adicionaElementos();
-		if(imprime) {
+		if (imprime) {
 			imprimeMatriz();
 		}
 
 	}
-
+	/**
+	 * adiciona nos vetores as coordenadas das regiões da matriz (cantos, centro e paredes)
+	 */
 	public void mapeiaMatriz() {
 
 		cse = new int[][] { { 0 }, { 0 } };
@@ -58,27 +60,22 @@ public class Matriz extends Util {
 		pi = new int[2][tamanho - 2];
 		c = new int[2][(tamanho - 2) * (tamanho - 2)];
 		int cont1 = 0;
+		
 		for (int i = 1; i < tamanho - 1; i++) {
 
 			pe[0][i - 1] = i;
 			pe[1][i - 1] = 0;
-			// System.out.println(pe[0][i-1]+" "+pe[1][i-1]);
-
 			ps[0][i - 1] = 0;
 			ps[1][i - 1] = i;
-
 			pd[0][i - 1] = i;
 			pd[1][i - 1] = tamanho - 1;
-
 			pi[0][i - 1] = tamanho - 1;
 			pi[1][i - 1] = i;
 
 			for (int j = 1; j < tamanho - 1; j++) {
-
 				c[0][cont1] = i;
 				c[1][cont1] = j;
 				cont1++;
-
 			}
 		}
 
@@ -164,7 +161,7 @@ public class Matriz extends Util {
 					}
 					if (col > 0) {
 
-						matrizSensacoes.get(lin).get(col-1).add(poco.getSensacao());
+						matrizSensacoes.get(lin).get(col - 1).add(poco.getSensacao());
 
 					}
 
@@ -275,7 +272,7 @@ public class Matriz extends Util {
 		System.out.println();
 
 	}
-	
+
 	public List<List<List<String>>> getMatrizSensacoes() {
 		return matrizSensacoes;
 	}
