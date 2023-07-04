@@ -34,11 +34,8 @@ public class WumpussWorld extends Util {
 		this.tamanho = tamanho;
 
 		matrizPrincipal = new Matriz(tamanho);
-	
 
-			matrizPrincipal = new Matriz(tamanho);
-
-		
+		matrizPrincipal = new Matriz(tamanho);
 
 		copiaMatrizPrincipal(tamanho);
 		copiaMatrizSesancoes(tamanho);
@@ -52,6 +49,7 @@ public class WumpussWorld extends Util {
 				matriz[i][j] = matrizPrincipal.getMatriz()[i][j];
 
 		}
+
 	}
 
 	public void copiaMatrizSesancoes(int tamanho) {
@@ -77,6 +75,15 @@ public class WumpussWorld extends Util {
 			}
 			System.out.println();
 		}
+
+	}
+
+	public void iniciaPartida() {
+
+		agente = new Agente(matrizPrincipal.num_wumpus);
+		copiaMatrizPrincipal(tamanho);
+		copiaMatrizSesancoes(tamanho);
+		contMatouWumpus = 0;
 
 	}
 
@@ -131,15 +138,6 @@ public class WumpussWorld extends Util {
 
 	}
 
-	public void iniciaPartida() {
-
-		agente = new Agente(matrizPrincipal.num_wumpus);
-		copiaMatrizPrincipal(tamanho);
-		copiaMatrizSesancoes(tamanho);
-		contMatouWumpus = 0;
-
-	}
-
 	public void movimenta(int regiao) {
 
 		agente.movimenta(regiao);
@@ -150,13 +148,13 @@ public class WumpussWorld extends Util {
 		if (matriz[agente.getLocLin()][agente.getLocCol()] == WUMPUS) {
 			agente.setDevorado(true);
 			contDevorado++;
-		//	System.out.println("devorado "+agente.getLocLin()+" "+agente.getLocCol());
+			// System.out.println("devorado "+agente.getLocLin()+" "+agente.getLocCol());
 		}
 
 		if (matriz[agente.getLocLin()][agente.getLocCol()] == POCO) {
 			agente.setCaiuPoco(true);
 			contCaiuPoco++;
-		//	System.out.println("caiu no poco");
+			// System.out.println("caiu no poco");
 
 		}
 
@@ -194,10 +192,9 @@ public class WumpussWorld extends Util {
 		if (tiro != null) {
 
 			if (tiro.atirou && matriz[tiro.lin][tiro.col] == WUMPUS) {
-			//	System.out.println("atirou e matou " + tiro.lin + " " + tiro.col);
+				// System.out.println("atirou e matou " + tiro.lin + " " + tiro.col);
 				matriz[tiro.lin][tiro.col] = 0;
-				
-				
+
 				try {
 					matrizSensacoes.get(tiro.lin + 1).get(tiro.col).remove(SENSACAO_WUMPUS);
 
@@ -221,8 +218,8 @@ public class WumpussWorld extends Util {
 
 				contMatouWumpus++;
 
-			}else {
-			//	System.out.println("Atirou e não matou " + tiro.lin + " " + tiro.col);
+			} else {
+				// System.out.println("Atirou e não matou " + tiro.lin + " " + tiro.col);
 
 			}
 
@@ -254,7 +251,7 @@ public class WumpussWorld extends Util {
 
 			do {
 
-			//	System.out.println(agente.getLocLin() + " " + agente.getLocCol());
+				// System.out.println(agente.getLocLin() + " " + agente.getLocCol());
 				regiao = localizaRegiao(agente.getLocLin(), agente.getLocCol());
 				realizaAcao(regiao);
 
@@ -264,18 +261,12 @@ public class WumpussWorld extends Util {
 				passosCol.add(agente.getLocCol());
 
 			} while (!agente.isVenceu() && !agente.isPerdeu());
-			//System.out.println(agente.getLocLin() + " " + agente.getLocCol());
+			// System.out.println(agente.getLocLin() + " " + agente.getLocCol());
 
-			//System.out.println();
+			// System.out.println();
 			contPartida++;
 		} while (contVenceu < 1);
 
-		
-		
-		
-		
-		
-		
 		// new Conteiner(passosLin, passosCol);
 
 		System.out.println("Venceu: " + contVenceu);
