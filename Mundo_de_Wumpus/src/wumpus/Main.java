@@ -9,7 +9,7 @@ public class Main {
 		for (int i = 0; i < 10; i++) {
 
 			double tempInicial = System.currentTimeMillis();
-			WumpussWorld wumpussWorld = new WumpussWorld(6);
+			WumpussWorld wumpussWorld = new WumpussWorld(5);
 			wumpussWorld.run();
 
 			double tempo = (System.currentTimeMillis() - tempInicial);
