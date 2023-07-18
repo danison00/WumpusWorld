@@ -54,7 +54,6 @@ public class AmbienteDeTesteSelecao extends Util {
 				List<String> sensacoes = null;
 				agente.acao(acao, sensacoes);
 
-
 				if (lin >= 0 && lin < ambiente.getMatrizSensacoes().size() && col >= 0
 						&& col < ambiente.getMatrizSensacoes().get(lin).size())
 					sensacoes = ambiente.getMatrizSensacoes().get(lin).get(col);
@@ -75,7 +74,7 @@ public class AmbienteDeTesteSelecao extends Util {
 				pegou = (float) (100.0 * 0.23);
 
 			if (geneP > 0)
-				pegouEmVao = (float) ((float) contPegouEmVao * 100.0 / geneP * 0.05);
+				pegouEmVao = (float)((float) contPegouEmVao * 100.0 / geneP * 0.05);
 
 			individuo.pontuacao = andouDentro + naoCaiuPoco + naoDevorado + pegou - pegouEmVao;// + pegar+-pegouEmVao;
 
@@ -195,7 +194,7 @@ public class AmbienteDeTesteSelecao extends Util {
 	}
 
 	public void imprimeMelhores(List<Individuo> melhores) {
-		System.out.println("\n*** 5 Melhores Individuos da geração " + melhores.get(0).geracao + " ***");
+		System.out.println("\n*** 15 Melhores Individuos da geração " + melhores.get(0).geracao + " ***");
 
 		for (Individuo individuo : melhores)
 			System.out.println("individuo " + individuo.id + ": " + individuo.pontuacao + " pts" + "    "

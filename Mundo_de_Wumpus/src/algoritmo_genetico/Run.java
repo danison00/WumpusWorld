@@ -42,14 +42,14 @@ public class Run {
 			melhores = ambienteDeTeste.testaIndividuos(geracoes.get(i));// testa geração 1
 
 			for (Individuo in : melhores)
-				if (in.pontuacao >= 85.0)
+				if (in.pontuacao >= 87.0)
 					cond = false;
 
 			i++;
 		}
 
 		ambienteDeTeste.ambiente.imprimeMatriz();
-
+		System.out.println(melhores.get(0).geracao);
 		for (Individuo individuo : melhores)
 			System.out.println(
 					"individuo " + individuo.id + ": " + individuo.pontuacao + " pts" + "    " + individuo.cromossomos);

@@ -8,16 +8,15 @@ public class Main {
 
 		
 		double ti =System.currentTimeMillis();
-		double soma=0;
-		for (int i = 0; i < 10; i++) {
-
-			Run run = new Run(50, 5);
+	
+	
+			Run run = new Run(50, 6);
 			run.start();
 			double t= System.currentTimeMillis()-ti;
-			soma+=t;
+		
 
-		}
-		System.out.println(soma/10/1000);
+		
+		System.out.println(t/1000+"s");
 	}
 
 }

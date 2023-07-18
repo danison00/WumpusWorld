@@ -41,8 +41,9 @@ public class Reproducao {
 
 		}
 
-		novos_individuos = elimina_prematuros(novos_individuos);
+	
 		
+		novos_individuos = elimina_prematuros(novos_individuos);
 		System.out.println("fim");
 		
 		//imprimeGeracao(novos_individuos);
