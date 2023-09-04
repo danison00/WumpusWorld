@@ -1,6 +1,6 @@
 # WumpusWorld
 
-Este repositório consiste em um projeto para aplicar os conhecimentos adquiridos na disciplina de Inteligencia Computacional. Foi codificado usando a linguagem de programação Java e é composto por 4 branches:
+Este repositório consiste em um projeto para aplicar os conhecimentos adquiridos na disciplina de Inteligência Computacional. Foi codificado usando a linguagem de programação Java e é composto por 4 branches:
 
 ## Main
 
@@ -14,7 +14,7 @@ Na branch "Gerador de ambiente aleatório", foi implementada a geração aleató
 Nessa branch foi implementado o ambiente gerado aleatoriamente juntamente com as sensações do ambiente. Aqui a missão do agente é matar todos os Wumpus, pegar o ouro e voltar para o ponto de partida. Nessa etapa, as decisões do agente são tomadas de forma aleatória.
 
 ## Agente com memória
-Nesta branch corresponde a etapa 2 do prjeto. Ainda não foram feitas codificações nesta etapa, porém já foram discutidas estratégias para implemnetar ao agente decisões mais inteligentes. 
+Nesta branch corresponde a etapa 2 do projeto. Ainda não foram feitas codificações nesta etapa, porém já foram discutidas estratégias para implementar ao agente decisões mais inteligentes. 
 
 
 
